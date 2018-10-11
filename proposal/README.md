@@ -27,3 +27,9 @@ This game app has numerous challenging components to be implemented in order to 
 * Decide on ideal size of real-world play space depending on location accuracy and playtesting
 * Multiple difficulty settings and a physical endurance mode for playing against a perfect AI or “wall” with high ball velocity
 * Each difficulty should have a constant that determines the increments the ball’s speed will increase with each successful hit and also each should have a respective cap on the max ball speed
+
+## Mockups
+![MockImage1](mock3.png)
+![MockImage2](mock4.png)
+![MockImage3](mock1.png)
+![MockImage4](mock2.png)
