@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">GeoPong</string>
+    <string name="multiplayer">MULTIPLAYER</string>
+    <string name="singleplayer">SINGLEPLAYER</string>
+    <string name="main_menu_logo_desc">GeoPong Icon</string>
+
+
+    <string name="placeholder">PLACEHOLDER</string>
 </resources>
