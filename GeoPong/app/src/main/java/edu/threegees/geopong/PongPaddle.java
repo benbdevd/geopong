@@ -1,4 +1,4 @@
-package com.example.caitlinwildman.geopong;
+package edu.threegees.geopong;
 
 public class PongPaddle
 {
