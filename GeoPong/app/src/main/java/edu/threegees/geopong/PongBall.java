@@ -7,8 +7,7 @@ public class PongBall
     //update game height and lengths
     private final int GAME_HEIGHT = 0;
     private final int GAME_LENGTH = 0;
-    private final int[] GAME_SPEED =
-            {1,2,3,4};
+    private final int[] GAME_SPEED = {1,2,3,4};
 
     private int yAxis;
     private int xAxis;
@@ -56,7 +55,7 @@ public class PongBall
         }
     }
 
-    public void launchBall()
+    private void launchBall()
     {
         Random ran = new Random();
         //ball Starting positon randomly launches ball in a certain direction
@@ -66,13 +65,13 @@ public class PongBall
 
     }
 
-    public boolean hasCollidedEdges()
+    private boolean hasCollidedEdges()
     {
         return yAxis < 0 || yAxis > GAME_HEIGHT;
     }
 
     //update with paddle placements
-    public boolean hasCollidedPaddle() { return xAxis < 0 || xAxis > GAME_LENGTH; }
+    private boolean hasCollidedPaddle() { return xAxis < 0 || xAxis > GAME_LENGTH; }
 
-    public boolean hasWonPoint() { return xAxis < 0 || xAxis > GAME_LENGTH; }
+    private boolean hasWonPoint() { return xAxis < 0 || xAxis > GAME_LENGTH; }
 }

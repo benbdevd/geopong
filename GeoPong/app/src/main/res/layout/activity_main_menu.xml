@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".MainMenuFragment"
+    tools:context=".MainMenuActivity"
     android:orientation="vertical"
     android:layout_gravity="center"
 
@@ -32,16 +32,21 @@
         <Button
             android:layout_width="180dp"
             android:layout_height="60dp"
-            android:text="@string/multiplayer"/>
+            android:id="@+id/multi_online_button"
+            android:onClick="onClickMultiOnline"
+            android:text="@string/multi_online"/>
         <Button
             android:layout_width="180dp"
             android:layout_height="60dp"
+            android:id="@+id/multi_local_button"
+            android:onClick="onClickMultiLocal"
+            android:text="@string/multi_local"/>
+        <Button
+            android:layout_width="180dp"
+            android:layout_height="60dp"
+            android:id="@+id/single_button"
+            android:onClick="onClickSinglePlayer"
             android:text="@string/singleplayer"/>
-        <Button
-            android:layout_width="180dp"
-            android:layout_height="60dp"
-            android:text="@string/placeholder"/>
-        <!-- Placeholder button for options/sign-in or other... -->
 
     </LinearLayout>
 

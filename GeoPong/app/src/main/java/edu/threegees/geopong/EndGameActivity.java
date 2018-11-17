@@ -1,19 +1,19 @@
 package edu.threegees.geopong;
 
 import android.content.pm.ActivityInfo;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 
-public class GameActivity extends AppCompatActivity
+public class EndGameActivity extends AppCompatActivity
 {
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_game);
+        setContentView(R.layout.activity_end_game);
 
-        //force app to run in portrait for consistent experience on phone
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
     }
+
 }
