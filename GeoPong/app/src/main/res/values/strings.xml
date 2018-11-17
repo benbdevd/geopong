@@ -4,6 +4,14 @@
     <string name="singleplayer">SINGLEPLAYER</string>
     <string name="main_menu_logo_desc">GeoPong Icon</string>
 
+    <string name="difficulty_1">EASY</string>
+    <string name="difficulty_2">NORMAL</string>
+    <string name="difficulty_3">HARD</string>
+    <string name="difficulty_4">INSANE</string>
+
 
     <string name="placeholder">PLACEHOLDER</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

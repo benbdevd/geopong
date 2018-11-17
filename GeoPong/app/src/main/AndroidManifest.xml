@@ -12,29 +12,14 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".MainMenuActivity">
+        <activity android:name=".GameActivity" />
+        <activity android:name=".MenusActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <!--
-        <activity android:name=".InviteeActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-
-                <data
-                    android:scheme="https"
-                    android:host="gp.benjb.ca"
-                    android:port="80"
-                    android:pathPattern="/.*" />
-            </intent-filter>
-        </activity>
-        -->
     </application>
 
 </manifest>
