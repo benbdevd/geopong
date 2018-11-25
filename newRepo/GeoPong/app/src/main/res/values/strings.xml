@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">GeoPong</string>
+    <string name="main_menu_logo_desc">GeoPong Icon</string>
+
+    <string name="multi_online">ONLINE MULTIPLAYER</string>
+    <string name="multi_local">LOCAL MULTIPLAYER</string>
+    <string name="singleplayer">SINGLEPLAYER</string>
+
+    <string name="score_limit_hint">15</string>
+    <string name="enter_score_limit">Enter Score Limit</string>
+
+    <string name="choose_difficulty_level">Choose Difficulty Level</string>
+    <string name="difficulty_1">EASY</string>
+    <string name="difficulty_2">NORMAL</string>
+    <string name="difficulty_3">HARD</string>
+    <string name="difficulty_4">INSANE</string>
+
+    <string name="rematch">REMATCH</string>
+    <string name="main_menu">MAIN MENU</string>
+
+    <string name="options_menu_toolbar_label">Select Match Options</string>
+    <string name="title_activity_options_menu">OptionsMenuActivity</string>
+    <string name="title_activity_end_game">EndGameActivity</string>
+    <string name="title_activity_dummy">Dummy</string>
+
+</resources>

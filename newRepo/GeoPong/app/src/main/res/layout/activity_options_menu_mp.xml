@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".OptionsMenuActivity">
+
+    <include layout="@layout/toolbar_options"
+        android:id="@+id/toolbar_options"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="100dp"
+        android:text="@string/enter_score_limit"
+        android:layout_gravity="center"
+        android:textSize="18sp"/>
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:id="@+id/score_limit_field"
+        android:inputType="number"
+        android:hint="@string/score_limit_hint"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:gravity="center"
+        android:layout_weight="2"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/choose_difficulty_level"
+            android:layout_gravity="center"
+            android:textSize="18sp"
+            android:paddingBottom="10dp"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/difficulty_1_button"
+            android:text="@string/difficulty_1"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/difficulty_2_button"
+            android:text="@string/difficulty_2"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/difficulty_3_button"
+            android:text="@string/difficulty_3"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/difficulty_4_button"
+            android:text="@string/difficulty_4"/>
+
+    </LinearLayout>
+
+
+</LinearLayout>
