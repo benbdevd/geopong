@@ -8,6 +8,7 @@ import android.view.View;
 
 public class MainMenuActivity extends AppCompatActivity
 {
+
     private int mGameMode;
 
     @Override

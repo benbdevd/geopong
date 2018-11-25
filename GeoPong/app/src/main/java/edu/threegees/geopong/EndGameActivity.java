@@ -6,9 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 
 public class EndGameActivity extends AppCompatActivity
 {
-    private int mWinPlayerId;
-    private int mLocalScore;
-    private int mAwayScore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)

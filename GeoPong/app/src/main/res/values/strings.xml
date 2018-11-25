@@ -15,9 +15,6 @@
     <string name="difficulty_3">HARD</string>
     <string name="difficulty_4">INSANE</string>
 
-    <string name="rematch">REMATCH</string>
-    <string name="main_menu">MAIN MENU</string>
-
     <string name="options_menu_toolbar_label">Select Match Options</string>
     <string name="title_activity_options_menu">OptionsMenuActivity</string>
     <string name="title_activity_end_game">EndGameActivity</string>

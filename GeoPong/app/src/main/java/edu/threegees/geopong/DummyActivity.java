@@ -24,6 +24,7 @@ public class DummyActivity extends Activity
 
         TextView textView = findViewById(R.id.dummy_config);
         textView.setText("Game mode: " + mGameMode + "\nDifficulty: " + mDifficulty + "\nScore Limit: " + mScoreLimit);
+
     }
 
 }

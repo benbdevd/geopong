@@ -31,10 +31,11 @@ public class OptionsMenuActivity extends AppCompatActivity implements View.OnCli
         else
         {
             setContentView(R.layout.activity_options_menu_mp);
-            mScoreLimit = JConstants.DEFAULT_POINT_LIMIT;
         }
 
+
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_options);
         setSupportActionBar(toolbar);
@@ -56,6 +57,7 @@ public class OptionsMenuActivity extends AppCompatActivity implements View.OnCli
         difficulty3Button.setOnClickListener(this);
         difficulty4Button.setOnClickListener(this);
     }
+
 
     @Override
     public void onClick(View v)
@@ -84,16 +86,8 @@ public class OptionsMenuActivity extends AppCompatActivity implements View.OnCli
         {
             EditText editText = findViewById(R.id.score_limit_field);
             String scoreFieldText = editText.getText().toString();
-            if(!scoreFieldText.equals(""))
-            {
-                mScoreLimit = Integer.valueOf(scoreFieldText);
-            }
-            else
-            {
-                mScoreLimit = JConstants.DEFAULT_POINT_LIMIT;
-            }
 
-
+            mScoreLimit = Integer.valueOf(scoreFieldText);
         }
 
         Intent intent = new Intent(this, DummyActivity.class);
