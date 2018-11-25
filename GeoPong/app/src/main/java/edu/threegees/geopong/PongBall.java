@@ -1,5 +1,7 @@
 package edu.threegees.geopong;
 
+import android.media.Image;
+
 import java.util.Random;
 
 public class PongBall
@@ -17,9 +19,12 @@ public class PongBall
     private int incrementX;
     private int incrementY;
 
+    private Image pongBall;
+
     //level will be the speed of the ball (how places per frame it move)
     public PongBall(int difficulty)
     {
+        pongBall = new PongBallImage("PongBall");
         speed = GAME_SPEED[difficulty];
 
         //ball Starting positon
