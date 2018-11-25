@@ -23,6 +23,7 @@ public class OptionsMenuActivity extends AppCompatActivity implements View.OnCli
         Intent intent = getIntent();
         mGameMode = intent.getIntExtra("game_mode", JConstants.SINGLEPLAYER);
 
+        //if statement sets layout based on whether user chose Singleplayer or a Multiplayer mode
         if(mGameMode == JConstants.SINGLEPLAYER)
         {
             setContentView(R.layout.activity_options_menu_sp);
@@ -33,15 +34,10 @@ public class OptionsMenuActivity extends AppCompatActivity implements View.OnCli
             setContentView(R.layout.activity_options_menu_mp);
         }
 
-
+        //force app to run in portrait for consistent experience on phone
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
-
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_options);
-        setSupportActionBar(toolbar);
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
-
+        initializeToolbar();
         initializeButtons();
     }
 
@@ -56,6 +52,14 @@ public class OptionsMenuActivity extends AppCompatActivity implements View.OnCli
         difficulty2Button.setOnClickListener(this);
         difficulty3Button.setOnClickListener(this);
         difficulty4Button.setOnClickListener(this);
+    }
+
+    private void initializeToolbar()
+    {
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_options);
+        setSupportActionBar(toolbar);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
     }
 
 
@@ -90,7 +94,7 @@ public class OptionsMenuActivity extends AppCompatActivity implements View.OnCli
             mScoreLimit = Integer.valueOf(scoreFieldText);
         }
 
-        Intent intent = new Intent(this, DummyActivity.class);
+        Intent intent = new Intent(this, DEPRECATED_DummyActivity.class);
         intent.putExtra("game_mode", mGameMode);
         intent.putExtra("difficulty", mDifficulty);
         intent.putExtra("score_limit", mScoreLimit);

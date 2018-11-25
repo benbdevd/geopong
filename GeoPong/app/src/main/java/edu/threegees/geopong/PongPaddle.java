@@ -1,6 +1,6 @@
 package edu.threegees.geopong;
 
-public class PongPaddle
+public class PongPaddle extends PongGameObject
 {
     public PongPaddle()
     {

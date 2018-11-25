@@ -20,7 +20,7 @@ public class MainMenuActivity extends AppCompatActivity
         //force app to run in portrait for consistent experience on phone
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
-        if(savedInstanceState != null)
+        if (savedInstanceState != null)
         {
 
         }
