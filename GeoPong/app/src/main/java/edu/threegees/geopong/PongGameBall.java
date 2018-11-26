@@ -2,20 +2,18 @@ package edu.threegees.geopong;
 
 import java.util.Random;
 
-public class PongBall extends PongGameObject
+public class PongGameBall extends PongGameObject
 {
     //update game height and lengths
     private final int GAME_HEIGHT = 0;
     private final int GAME_LENGTH = 0;
 
     //subject to change
-    private int mXVelocity;
-    private int mYVelocity;
 
     private int mDifficulty;
 
     //level will be the currentSpeed of the ball (how places per frame it move)
-    public PongBall(int difficulty)
+    public PongGameBall(int difficulty)
     {
         super();
         //pongBall = new Image("pongball.png");
@@ -32,8 +30,8 @@ public class PongBall extends PongGameObject
     @Override
     public void update()
     {
-        mXPos += mXVelocity;
-        mYPos += mYVelocity;
+        mXPosition += mXVelocity;
+        mYPosition += mYVelocity;
 
         if(hasCollidedEdges())
         {
@@ -71,8 +69,8 @@ public class PongBall extends PongGameObject
         Random ran = new Random();
         //ball Starting position randomly launches ball in a certain direction
         //Think about adding bounds so as to not launch at max or min height
-        mYPos = GAME_LENGTH/2;
-        mXPos = (GAME_HEIGHT * ran.nextInt());
+        mYPosition = GAME_LENGTH/2;
+        mXPosition = (GAME_HEIGHT * ran.nextInt());
 
         mXVelocity = INITIAL_SPEED;
         mYVelocity = INITIAL_SPEED;
@@ -80,22 +78,22 @@ public class PongBall extends PongGameObject
 
     private boolean hasCollidedEdges()
     {
-        return mXPos < 0 || mXPos > GAME_LENGTH;
+        return mXPosition < 0 || mXPosition > GAME_LENGTH;
     }
 
     //update with paddle placements
     private boolean hasCollidedPaddle()
     {
-        return mYPos < 0 || mYPos > GAME_HEIGHT;
+        return mYPosition < 0 || mYPosition > GAME_HEIGHT;
     }
 
     private int hasWonPoint()
     {
-        if(mYPos < 0)
+        if(mYPosition < 0)
         {
             return 1;
         }
-        else if(mYPos > GAME_HEIGHT)
+        else if(mYPosition > GAME_HEIGHT)
         {
             return 2;
         }

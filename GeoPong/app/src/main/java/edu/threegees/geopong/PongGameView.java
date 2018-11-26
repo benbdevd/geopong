@@ -2,64 +2,53 @@ package edu.threegees.geopong;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.os.Handler;
+import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.view.View;
 
-public class PongGameView extends SurfaceView implements Runnable, SurfaceHolder.Callback
+public class PongGameView extends SurfaceView implements SurfaceHolder.Callback
 {
     private PongGameThread mPongGameThread;
 
-    private PongBall mPongBall;
-    private PongPaddle mLocalPaddle;
-    private PongPaddle mAwayPaddle;
-
-    public PongGameView(Context context)
+    public PongGameView(Context context, Integer difficulty)
     {
         super(context);
 
+        SurfaceHolder surfaceHolder = getHolder();
         setFocusable(true);
-        getHolder().addCallback(this);
-    }
+        surfaceHolder.addCallback(this);
 
-    public void update()
-    {
-        mAwayPaddle.update();
-        mLocalPaddle.update();
-        mPongBall.update();
-    }
+        PongGameObject[] gameObjects = {new PongGameBall(difficulty), new PongGamePaddle(), new PongGamePaddle()};
 
-    @Override
-    public void draw(Canvas canvas)
-    {
-        super.draw(canvas);
-
-        mPongBall.draw(canvas);
-        mLocalPaddle.draw(canvas);
-        mAwayPaddle.draw(canvas);
-    }
-
-    @Override
-    public void run()
-    {
-
+        mPongGameThread = new PongGameThread(surfaceHolder, context, new Handler(), gameObjects);
     }
 
     /*
         Required methods for implementing SurfaceHolder
      */
-
     @Override
     public void surfaceChanged(SurfaceHolder holder, int format, int width, int height)
     {
     }
 
     @Override
-    public void surfaceCreated(SurfaceHolder holder) {
+    public void surfaceCreated(SurfaceHolder holder)
+    {
         mPongGameThread.start();
     }
 
     @Override
-    public void surfaceDestroyed(SurfaceHolder holder) {
+    public void surfaceDestroyed(SurfaceHolder holder)
+    {
         mPongGameThread.interrupt();
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event)
+    {
+        return super.onTouchEvent(event);
     }
 }

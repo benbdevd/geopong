@@ -8,22 +8,34 @@ import android.view.SurfaceHolder;
 
 public class PongGameThread extends Thread
 {
-    /** Handle to the surface manager object we interact with */
-    private SurfaceHolder surfaceHolder;
-    private Paint paint;
+    private PongGameObject[] mPongGameObjects;
 
-    public PongGameThread(SurfaceHolder surfaceHolder, Context context, Handler handler)
+    private SurfaceHolder mSurfaceHolder;
+    private Paint mPaint;
+
+    public PongGameThread(SurfaceHolder surfaceHolder, Context context, Handler handler, PongGameObject[] gameObjects)
     {
-        this.surfaceHolder = surfaceHolder;
-        paint = new Paint();
+        mPongGameObjects = gameObjects;
+
+        this.mSurfaceHolder = surfaceHolder;
+        mPaint = new Paint();
     }
 
     @Override
     public void run() {
         while(true)
         {
-            Canvas canvas = surfaceHolder.lockCanvas();
-            surfaceHolder.unlockCanvasAndPost(canvas);
+            Canvas canvas = mSurfaceHolder.lockCanvas();
+
+            canvas.drawRGB(0, 0, 0);
+
+            for(PongGameObject object : mPongGameObjects)
+            {
+                object.update();
+                object.draw(canvas, mPaint);
+            }
+
+            mSurfaceHolder.unlockCanvasAndPost(canvas);
         }
     }
 }
