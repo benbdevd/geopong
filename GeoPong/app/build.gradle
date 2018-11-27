@@ -1,20 +1,6 @@
 apply plugin: 'com.android.application'
 
 android {
-    signingConfigs {
-        debugKey {
-            keyAlias 'debug0'
-            storeFile file('C:/Users/benb/Documents/toBeLoadedOff/FinalProj/keystore/debug0.jks')
-            keyPassword 'cwcw1234'
-            storePassword 'cwcw1234'
-        }
-        releaseKey {
-            keyAlias 'key0'
-            keyPassword 'CwCw1234_'
-            storeFile file('C:/Users/benb/Documents/toBeLoadedOff/FinalProj/keystore/gpKey.jks')
-            storePassword 'CwCw1234_'
-        }
-    }
     compileSdkVersion 28
     defaultConfig {
         applicationId "edu.threegees.geopong"
