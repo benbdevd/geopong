@@ -33,6 +33,10 @@ public class GameActivity extends AppCompatActivity
 
         final GameView gameView = new GameView(getApplicationContext());
 
+        gameView.pGameMode = mGameMode;
+        gameView.pDifficulty = mDifficulty;
+        gameView.pScoreLimit = mScoreLimit;
+
         setContentView(gameView);
     }
 

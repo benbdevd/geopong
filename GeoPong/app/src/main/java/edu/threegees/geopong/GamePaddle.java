@@ -43,12 +43,21 @@ public class GamePaddle extends GameObject
         }
 
         dimensions = new Rect((int) mXPosition, (int) mYPosition, mWidth, mHeight);
+
     }
 
     @Override
     public void update()
     {
+        changeXBy(mXVelocity);
+        changeYBy(mYVelocity);
 
+        collideLeft = (int) mXPosition;
+        collideTop = (int) mYPosition;
+        collideRight = (int) mXPosition + mWidth;
+        collideBottom = (int) mYPosition + mHeight;
+
+        mLastUpdateTime = System.nanoTime();
     }
 
     @Override

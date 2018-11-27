@@ -2,8 +2,6 @@ package edu.threegees.geopong;
 
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.graphics.Rect;
-import static edu.threegees.geopong.JConstants.*;
 
 
 public abstract class GameObject
@@ -14,19 +12,19 @@ public abstract class GameObject
     protected float mXVelocity;
     protected float mYVelocity;
 
+    protected int collideLeft;
+    protected int collideTop;
+    protected int collideRight;
+    protected int collideBottom;
+
     protected long mLastUpdateTime;
 
     public void update()
     {
-        changeXBy(mXVelocity);
-        changeYBy(mYVelocity);
-
-        mLastUpdateTime = System.nanoTime();
     }
 
     public void draw(Canvas canvas, Paint paint)
     {
-
     }
 
     public float getY()
@@ -67,5 +65,25 @@ public abstract class GameObject
     public void changeYBy(float newY)
     {
         mYPosition += newY;
+    }
+
+    public int getCollideLeft()
+    {
+        return collideLeft;
+    }
+
+    public int getCollideTop()
+    {
+        return collideTop;
+    }
+
+    public int getCollideRight()
+    {
+        return collideRight;
+    }
+
+    public int getCollideBottom()
+    {
+        return collideBottom;
     }
 }

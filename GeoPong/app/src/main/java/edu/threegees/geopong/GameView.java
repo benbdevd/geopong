@@ -24,6 +24,10 @@ public class GameView extends View
     public static int pGameHeight;
     public static int pGameWidth;
 
+    public static int pGameMode;
+    public static int pDifficulty;
+    public static int pScoreLimit;
+
     public GameView(Context context)
     {
         super(context);
@@ -46,8 +50,6 @@ public class GameView extends View
             @Override
             public void run()
             {
-                gameBall.setXVelocity((float) 1);
-                gameBall.setYVelocity((float) 1);
                 gameBall.update();
                 invalidate();
 
@@ -70,8 +72,8 @@ public class GameView extends View
         //DRAW BLACK BACKGROUND
         canvas.drawARGB(255, 0, 0, 0);
         gameBall.draw(canvas, mPaint);
-        gamePaddleA.draw(canvas, mPaint);
-        //gamePaddleS.draw(canvas, mPaint);
+        //gamePaddleA.draw(canvas, mPaint);
+        gamePaddleS.draw(canvas, mPaint);
         //gamePaddleH.draw(canvas, mPaint);
     }
 }

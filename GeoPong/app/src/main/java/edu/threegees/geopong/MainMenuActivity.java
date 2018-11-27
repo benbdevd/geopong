@@ -1,9 +1,13 @@
 package edu.threegees.geopong;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.content.pm.PackageManager;
 import android.media.MediaPlayer;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -18,6 +22,16 @@ public class MainMenuActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+
+        /**
+         * GET LOCATION PERMISSION FROM USER IF APP DOESN'T HAVE IT
+         */
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED)
+        {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 0);
+        }
 
         /**
          * MAKE SURE THAT ACTIVITY DOESN'T CRASH WHEN PRESSING BACK BUTTON FROM OPTIONS_ACTIVITY
@@ -69,7 +83,6 @@ public class MainMenuActivity extends AppCompatActivity
     public void onStart()
     {
         super.onStart();
-
     }
 
     @Override

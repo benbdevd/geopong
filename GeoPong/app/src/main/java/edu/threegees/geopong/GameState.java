@@ -9,6 +9,27 @@ public class GameState
 
     private boolean gameOver;
 
+    /*
+    public void checkForCollision(GameObject obj1, GameObject obj2)
+    {
+        int collideLeft = Math.max(obj1.collideLeft, obj2.collideLeft);
+        int collideRight = Math.min(obj1.collideRight, obj2.collideRight);
+        int collideTop = Math.min(obj1.collideTop, obj2.collideTop);
+        int collideBottom = Math.max(obj1.collideBottom, obj2.collideBottom);
+
+        for (int x = collideLeft; x < collideRight; x++)
+        {
+            for (int y = collideTop; y < collideBottom; y++)
+            {
+                if (obj1.isFilled(x, y) && obj2.isFilled(x, y))
+                {
+                    return true;
+                }
+            }
+        }
+    }
+    */
+
 
     /*
     mXPosition += mXVelocity;

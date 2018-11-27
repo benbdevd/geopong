@@ -2,6 +2,8 @@ package edu.threegees.geopong;
 
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.util.Log;
+
 import static edu.threegees.geopong.JConstants.*;
 
 
@@ -14,6 +16,36 @@ public class GameBall extends GameObject
         super();
         mXPosition = GameView.pGameWidth/2;
         mYPosition = GameView.pGameHeight/2;
+
+        mXVelocity = (float) INITIAL_SPEEDS[GameView.pDifficulty];
+        mYVelocity = (float) INITIAL_SPEEDS[GameView.pDifficulty];
+    }
+
+    @Override
+    public void update()
+    {
+        changeXBy(mXVelocity);
+        changeYBy(mYVelocity);
+
+        collideLeft = (int) mXPosition - PONG_BALL_RADIUS;
+        collideTop = (int) mYPosition - PONG_BALL_RADIUS;
+        collideRight = (int) mXPosition + PONG_BALL_RADIUS;
+        collideBottom = (int) mYPosition + PONG_BALL_RADIUS;
+
+        /**
+         * HANDLE COLLISION WITH WALLS (SPEED DOES NOT CHANGE)
+         */
+
+        if(collideRight >= GameView.pGameWidth || collideLeft <= 0)
+        {
+            setXVelocity(-mXVelocity);
+        }
+        if(collideBottom >= GameView.pGameHeight || collideTop <= 0)
+        {
+            setYVelocity(-mYVelocity);
+        }
+
+        mLastUpdateTime = System.nanoTime();
     }
 
     /*
@@ -26,8 +58,6 @@ public class GameBall extends GameObject
         //Think about adding bounds so as to not launch at max or min height
         mYPosition = GAME_LENGTH/2;
         mXPosition = (GAME_HEIGHT * ran.nextInt());
-        mXVelocity = INITIAL_SPEED;
-        mYVelocity = INITIAL_SPEED;
 
     }
     */
