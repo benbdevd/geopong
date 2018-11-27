@@ -18,6 +18,5 @@ public class PongGameActivity extends AppCompatActivity
         final PongGameView pongGameView = new PongGameView(getApplicationContext());
 
         setContentView(pongGameView);
-
     }
 }

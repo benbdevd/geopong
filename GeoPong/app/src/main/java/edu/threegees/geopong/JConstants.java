@@ -10,6 +10,20 @@ public class JConstants
     static final int[] SPEED_INCREMENTS = {1,2,3,4};
     static final int[] SPEED_CAPS = {10,20,30,40};
 
+    static final int PONG_BALL_RADIUS = 30;
+
+    static final int PADDLE_TYPE_HOME = 0;
+    static final int PADDLE_TYPE_AWAY = 1;
+    static final int PADDLE_TYPE_SP = 2;
+
+
+    static final int PONG_PADDLE_WIDTH = 256;
+    static final int PONG_PADDLE_HEIGHT = 50;
+
+    static final int PADDLE_PADX = 25;
+    static final int PADDLE_PADY = 25;
+
+
     static final int[] GPS_SCALE_FACTORS = {100, 50, 25, 10};
 
     //UPDATE strings.xml score_limit_hint upon changing

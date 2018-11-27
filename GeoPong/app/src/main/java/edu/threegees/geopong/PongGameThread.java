@@ -6,36 +6,22 @@ import android.graphics.Paint;
 import android.os.Handler;
 import android.view.SurfaceHolder;
 
-public class PongGameThread extends Thread
+public class PongGameThread implements Runnable
 {
     private PongGameObject[] mPongGameObjects;
-
-    private SurfaceHolder mSurfaceHolder;
-    private Paint mPaint;
+    private PongGameState mPongGameState;
 
     public PongGameThread(SurfaceHolder surfaceHolder, Context context, Handler handler, PongGameObject[] gameObjects)
     {
         mPongGameObjects = gameObjects;
-
-        this.mSurfaceHolder = surfaceHolder;
-        mPaint = new Paint();
+        mPongGameState = new PongGameState();
     }
 
     @Override
     public void run() {
         while(true)
         {
-            Canvas canvas = mSurfaceHolder.lockCanvas();
 
-            canvas.drawRGB(0, 0, 0);
-
-            for(PongGameObject object : mPongGameObjects)
-            {
-                object.update();
-                object.draw(canvas, mPaint);
-            }
-
-            mSurfaceHolder.unlockCanvasAndPost(canvas);
         }
     }
 }
