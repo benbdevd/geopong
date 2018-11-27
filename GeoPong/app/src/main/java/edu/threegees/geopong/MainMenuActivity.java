@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.app.Service;
+import static edu.threegees.geopong.JConstants.*;
 
 public class MainMenuActivity extends AppCompatActivity
 {
@@ -17,6 +18,10 @@ public class MainMenuActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+
+        /**
+         * MAKE SURE THAT ACTIVITY DOESN'T CRASH WHEN PRESSING BACK BUTTON FROM OPTIONS_ACTIVITY
+         */
         setContentView(R.layout.activity_main_menu);
         //force app to run in portrait for consistent experience on phone
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
@@ -31,26 +36,30 @@ public class MainMenuActivity extends AppCompatActivity
 
     public void onClickMultiOnline(View v)
     {
-        mGameMode = JConstants.MULTI_ONLINE;
+        mGameMode = MULTI_ONLINE;
         onGameModeSelect();
     }
 
     public void onClickMultiLocal(View v)
     {
-        mGameMode = JConstants.MULTI_LOCAL;
+        mGameMode = MULTI_LOCAL;
         onGameModeSelect();
     }
 
     public void onClickSinglePlayer(View v)
     {
-        mGameMode = JConstants.SINGLEPLAYER;
+        mGameMode = SINGLEPLAYER;
         onGameModeSelect();
     }
 
     private void onGameModeSelect()
     {
         Intent intent = new Intent(this, OptionsMenuActivity.class);
-        intent.putExtra("game_mode", mGameMode);
+        intent.putExtra(game_mode, mGameMode);
+
+        View thisLayout = findViewById(R.id.main_menu_layout);
+        GameView.pGameHeight = thisLayout.getHeight();
+        GameView.pGameWidth = thisLayout.getWidth();
 
         startActivity(intent);
     }

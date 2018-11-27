@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <edu.threegees.geopong.PongGameView
+    <edu.threegees.geopong.GameView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/pong_game_view"/>

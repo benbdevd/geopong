@@ -2,22 +2,18 @@ package edu.threegees.geopong;
 
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import static edu.threegees.geopong.JConstants.*;
 
-import java.util.Random;
 
-public class PongGameBall extends PongGameObject
+public class GameBall extends GameObject
 {
 
     //level will be the currentSpeed of the ball (how places per frame it move)
-    public PongGameBall()
+    public GameBall()
     {
         super();
-    }
-
-    @Override
-    public void update()
-    {
-
+        mXPosition = GameView.pGameWidth/2;
+        mYPosition = GameView.pGameHeight/2;
     }
 
     /*
@@ -41,7 +37,7 @@ public class PongGameBall extends PongGameObject
     @Override
     public void draw(Canvas canvas, Paint paint)
     {
-        canvas.drawCircle(canvas.getWidth()/2, canvas.getHeight()/2, JConstants.PONG_BALL_RADIUS, paint);
+        canvas.drawCircle(mXPosition, mYPosition, PONG_BALL_RADIUS, paint);
     }
 
 }

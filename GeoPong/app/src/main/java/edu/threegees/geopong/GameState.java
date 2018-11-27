@@ -1,8 +1,11 @@
 package edu.threegees.geopong;
 
-public class PongGameState
+import static edu.threegees.geopong.JConstants.*;
+
+
+public class GameState
 {
-    //private PongGameObject[] pongPaddles = {new PongGamePaddle(), new PongGamePaddle()};
+    //private GameObject[] pongPaddles = {new GamePaddle(), new GamePaddle()};
 
     private boolean gameOver;
 

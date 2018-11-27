@@ -9,6 +9,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import static edu.threegees.geopong.JConstants.*;
+
 
 public class OptionsMenuActivity extends AppCompatActivity implements View.OnClickListener
 {
@@ -21,13 +23,13 @@ public class OptionsMenuActivity extends AppCompatActivity implements View.OnCli
     {
         super.onCreate(savedInstanceState);
         Intent intent = getIntent();
-        mGameMode = intent.getIntExtra("game_mode", JConstants.SINGLEPLAYER);
+        mGameMode = intent.getIntExtra("game_mode", SINGLEPLAYER);
 
         //if statement sets layout based on whether user chose Singleplayer or a Multiplayer mode
-        if(mGameMode == JConstants.SINGLEPLAYER)
+        if(mGameMode == SINGLEPLAYER)
         {
             setContentView(R.layout.activity_options_menu_sp);
-            mScoreLimit = JConstants.SINGLEPLAYER_INF_POINTS;
+            mScoreLimit = SINGLEPLAYER_INF_POINTS;
         }
         else
         {
@@ -86,7 +88,7 @@ public class OptionsMenuActivity extends AppCompatActivity implements View.OnCli
                 break;
         }
 
-        if(mGameMode != JConstants.SINGLEPLAYER)
+        if(mGameMode != SINGLEPLAYER)
         {
             EditText editText = findViewById(R.id.score_limit_field);
             String scoreFieldText = editText.getText().toString();
@@ -97,15 +99,15 @@ public class OptionsMenuActivity extends AppCompatActivity implements View.OnCli
             }
             else
             {
-                mScoreLimit = JConstants.DEFAULT_POINT_LIMIT;
+                mScoreLimit = DEFAULT_POINT_LIMIT;
             }
 
         }
 
-        Intent intent = new Intent(this, PongGameActivity.class);
-        intent.putExtra("game_mode", mGameMode);
-        intent.putExtra("difficulty", mDifficulty);
-        intent.putExtra("score_limit", mScoreLimit);
+        Intent intent = new Intent(this, GameActivity.class);
+        intent.putExtra(game_mode, mGameMode);
+        intent.putExtra(difficulty, mDifficulty);
+        intent.putExtra(score_limit, mScoreLimit);
 
         startActivity(intent);
     }

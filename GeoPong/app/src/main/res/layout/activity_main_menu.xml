@@ -7,6 +7,7 @@
     tools:context=".MainMenuActivity"
     android:orientation="vertical"
     android:layout_gravity="center"
+    android:id="@+id/main_menu_layout"
 
     android:paddingTop="120dp"
     android:paddingBottom="120dp">
