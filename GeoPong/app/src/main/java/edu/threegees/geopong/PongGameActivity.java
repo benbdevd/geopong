@@ -1,11 +1,14 @@
 package edu.threegees.geopong;
 
 import android.content.pm.ActivityInfo;
+import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 public class PongGameActivity extends AppCompatActivity
 {
+    MediaPlayer mMediaPlayer;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -18,5 +21,16 @@ public class PongGameActivity extends AppCompatActivity
         final PongGameView pongGameView = new PongGameView(getApplicationContext());
 
         setContentView(pongGameView);
+    }
+
+    @Override
+    public void onStart()
+    {
+        super.onStart();
+
+        mMediaPlayer = new MediaPlayer();
+        mMediaPlayer = MediaPlayer.create(this, R.raw.geopong);
+        mMediaPlayer.setLooping(true);
+        mMediaPlayer.start();
     }
 }

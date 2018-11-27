@@ -33,6 +33,7 @@
         <activity
             android:name=".DEPRECATED_DummyActivity"
             android:label="@string/title_activity_dummy" />
+
     </application>
 
 </manifest>

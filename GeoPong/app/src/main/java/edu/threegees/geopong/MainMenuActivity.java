@@ -1,32 +1,33 @@
 package edu.threegees.geopong;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.app.Service;
 
 public class MainMenuActivity extends AppCompatActivity
 {
     private int mGameMode;
-    protected MediaPlayer mMediaPlayer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
-        mMediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.geopong);
-
         //force app to run in portrait for consistent experience on phone
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
 
         if (savedInstanceState != null)
         {
 
         }
     }
+
 
     public void onClickMultiOnline(View v)
     {
@@ -54,20 +55,24 @@ public class MainMenuActivity extends AppCompatActivity
         startActivity(intent);
     }
 
-    @Override
-    protected void onResume()
-    {
-        super.onResume();
 
-        //begins background music
-        mMediaPlayer.start();
+    @Override
+    public void onStart()
+    {
+        super.onStart();
+
     }
 
     @Override
-    protected void onPause()
+    public void onPause()
     {
         super.onPause();
-        mMediaPlayer.stop();
-        mMediaPlayer.release();
     }
+
+    @Override
+    public void onResume()
+    {
+        super.onResume();
+    }
+
 }
