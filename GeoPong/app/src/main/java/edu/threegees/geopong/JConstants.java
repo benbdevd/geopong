@@ -6,11 +6,11 @@ public class JConstants
     static final int MULTI_LOCAL = 1;
     static final int SINGLEPLAYER = 0;
 
-    //Should difficulties start at different Velocities?
     static final int[] INITIAL_SPEEDS = {1,2,3,4};
-
     static final int[] SPEED_INCREMENTS = {1,2,3,4};
     static final int[] SPEED_CAPS = {10,20,30,40};
+
+    static final int[] GPS_SCALE_FACTORS = {100, 50, 25, 10};
 
     //UPDATE strings.xml score_limit_hint upon changing
     static final int DEFAULT_POINT_LIMIT = 15;

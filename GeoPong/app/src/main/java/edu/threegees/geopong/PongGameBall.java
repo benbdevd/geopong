@@ -1,5 +1,8 @@
 package edu.threegees.geopong;
 
+import android.graphics.Canvas;
+import android.graphics.Paint;
+
 import java.util.Random;
 
 public class PongGameBall extends PongGameObject
@@ -99,6 +102,12 @@ public class PongGameBall extends PongGameObject
         }
         else
             return 0;
+    }
+
+    @Override
+    public void draw(Canvas canvas, Paint paint)
+    {
+        canvas.drawCircle(canvas.getWidth()/2, canvas.getHeight()/2, 50, paint);
     }
 
 }

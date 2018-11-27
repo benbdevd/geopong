@@ -91,10 +91,18 @@ public class OptionsMenuActivity extends AppCompatActivity implements View.OnCli
             EditText editText = findViewById(R.id.score_limit_field);
             String scoreFieldText = editText.getText().toString();
 
-            mScoreLimit = Integer.valueOf(scoreFieldText);
+            if(!scoreFieldText.equals(""))
+            {
+                mScoreLimit = Integer.valueOf(scoreFieldText);
+            }
+            else
+            {
+                mScoreLimit = JConstants.DEFAULT_POINT_LIMIT;
+            }
+
         }
 
-        Intent intent = new Intent(this, DEPRECATED_DummyActivity.class);
+        Intent intent = new Intent(this, PongGameActivity.class);
         intent.putExtra("game_mode", mGameMode);
         intent.putExtra("difficulty", mDifficulty);
         intent.putExtra("score_limit", mScoreLimit);

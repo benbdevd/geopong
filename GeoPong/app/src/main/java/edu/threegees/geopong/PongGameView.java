@@ -4,51 +4,46 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.os.Handler;
+import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 
-public class PongGameView extends SurfaceView implements SurfaceHolder.Callback
+public class PongGameView extends View
 {
     private PongGameThread mPongGameThread;
+    private Paint mPaint;
 
-    public PongGameView(Context context, Integer difficulty)
+    private PongGameBall pongGameBall = new PongGameBall(0);
+
+    public PongGameView(Context context)
     {
         super(context);
-
-        SurfaceHolder surfaceHolder = getHolder();
-        setFocusable(true);
-        surfaceHolder.addCallback(this);
-
-        PongGameObject[] gameObjects = {new PongGameBall(difficulty), new PongGamePaddle(), new PongGamePaddle()};
-
-        mPongGameThread = new PongGameThread(surfaceHolder, context, new Handler(), gameObjects);
+        setWillNotDraw(false);
     }
 
-    /*
-        Required methods for implementing SurfaceHolder
-     */
-    @Override
-    public void surfaceChanged(SurfaceHolder holder, int format, int width, int height)
+    public PongGameView(Context context, AttributeSet attrs)
     {
+        super(context, attrs);
+        setWillNotDraw(false);
     }
 
-    @Override
-    public void surfaceCreated(SurfaceHolder holder)
+    public void onDraw(Canvas canvas)
     {
-        mPongGameThread.start();
-    }
+        super.onDraw(canvas);
 
-    @Override
-    public void surfaceDestroyed(SurfaceHolder holder)
-    {
-        mPongGameThread.interrupt();
-    }
+        if (mPaint == null)
+        {
+            mPaint = new Paint();
+            //SET PAINT COLOR TO WHITE
+            mPaint.setARGB(255, 255, 255, 255);
+        }
 
-    @Override
-    public boolean onTouchEvent(MotionEvent event)
-    {
-        return super.onTouchEvent(event);
+        //DRAW BLACK BACKGROUND
+        canvas.drawARGB(255, 0, 0, 0);
+        pongGameBall.draw(canvas, mPaint);
+
     }
 }

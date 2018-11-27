@@ -6,10 +6,8 @@ import android.graphics.Rect;
 
 public abstract class PongGameObject
 {
-    protected int mXPosition;
-    protected int mYPosition;
-    protected int mHeight;
-    protected int mLength;
+    protected float mXPosition;
+    protected float mYPosition;
 
     protected int mXVelocity;
     protected int mYVelocity;
@@ -21,14 +19,9 @@ public abstract class PongGameObject
 
     }
 
-    public void draw(Canvas canvas, Paint paint) {
+    public void draw(Canvas canvas, Paint paint)
+    {
 
-        //set the colour to white
-        paint.setARGB(255, 255, 255, 255);
-
-        canvas.drawRect(new Rect(mXPosition, mYPosition, mXPosition + mLength, mYPosition + mHeight), paint);
-
-        this.mLastUpdateTime = System.nanoTime();
     }
 
     public void setMovingVectior()
@@ -36,13 +29,23 @@ public abstract class PongGameObject
 
     }
 
-    public int getY()
+    public float getY()
     {
         return mYPosition;
     }
 
-    public int getX()
+    public float getX()
     {
         return mXPosition;
+    }
+
+    public void setX(float newX)
+    {
+        mXPosition = newX;
+    }
+
+    public void setY(float newY)
+    {
+        mYPosition = newY;
     }
 }
