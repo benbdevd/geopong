@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 
 import static edu.threegees.geopong.JConstants.*;
@@ -12,10 +11,10 @@ import static edu.threegees.geopong.JConstants.*;
 
 public class GameView extends View
 {
-    private android.os.Handler handler;
+    private android.os.Handler mHandler;
     private Paint mPaint;
 
-    private GameBall gameBall = new GameBall();
+    private GameBall gameBall;
 
     private GamePaddle gamePaddleH = new GamePaddle(PADDLE_TYPE_HOME);
     private GamePaddle gamePaddleA = new GamePaddle(PADDLE_TYPE_AWAY);
@@ -33,19 +32,23 @@ public class GameView extends View
         super(context);
         setWillNotDraw(false);
         startGameThread();
+
+        gameBall = new GameBall();
+
+        mPaint = new Paint();
+        //SET PAINT COLOR TO WHITE
+        mPaint.setARGB(255, 255, 255, 255);
     }
 
     public GameView(Context context, AttributeSet attrs)
     {
         super(context, attrs);
-        setWillNotDraw(false);
-        startGameThread();
     }
 
     public void startGameThread()
     {
-        handler = new android.os.Handler();
-        handler.post(new Runnable()
+        mHandler = new android.os.Handler();
+        mHandler.post(new Runnable()
         {
             @Override
             public void run()
@@ -53,7 +56,7 @@ public class GameView extends View
                 gameBall.update();
                 invalidate();
 
-                handler.post(this);
+                mHandler.post(this);
             }
         });
     }
@@ -62,18 +65,26 @@ public class GameView extends View
     {
         super.onDraw(canvas);
 
-        if (mPaint == null)
-        {
-            mPaint = new Paint();
-            //SET PAINT COLOR TO WHITE
-            mPaint.setARGB(255, 255, 255, 255);
-        }
-
         //DRAW BLACK BACKGROUND
         canvas.drawARGB(255, 0, 0, 0);
         gameBall.draw(canvas, mPaint);
         //gamePaddleA.draw(canvas, mPaint);
         gamePaddleS.draw(canvas, mPaint);
         //gamePaddleH.draw(canvas, mPaint);
+    }
+
+    public static int getDifficulty()
+    {
+        return pDifficulty;
+    }
+
+    public static int getScoreLimit()
+    {
+        return pScoreLimit;
+    }
+
+    public static int getGameMode()
+    {
+        return pGameMode;
     }
 }

@@ -12,14 +12,14 @@ public class GameState
     /*
     public void checkForCollision(GameObject obj1, GameObject obj2)
     {
-        int collideLeft = Math.max(obj1.collideLeft, obj2.collideLeft);
-        int collideRight = Math.min(obj1.collideRight, obj2.collideRight);
-        int collideTop = Math.min(obj1.collideTop, obj2.collideTop);
-        int collideBottom = Math.max(obj1.collideBottom, obj2.collideBottom);
+        int mCollideLeft = Math.max(obj1.mCollideLeft, obj2.mCollideLeft);
+        int mCollideRight = Math.min(obj1.mCollideRight, obj2.mCollideRight);
+        int mCollideTop = Math.min(obj1.mCollideTop, obj2.mCollideTop);
+        int mCollideBottom = Math.max(obj1.mCollideBottom, obj2.mCollideBottom);
 
-        for (int x = collideLeft; x < collideRight; x++)
+        for (int x = mCollideLeft; x < mCollideRight; x++)
         {
-            for (int y = collideTop; y < collideBottom; y++)
+            for (int y = mCollideTop; y < mCollideBottom; y++)
             {
                 if (obj1.isFilled(x, y) && obj2.isFilled(x, y))
                 {

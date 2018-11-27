@@ -12,10 +12,10 @@ public abstract class GameObject
     protected float mXVelocity;
     protected float mYVelocity;
 
-    protected int collideLeft;
-    protected int collideTop;
-    protected int collideRight;
-    protected int collideBottom;
+    protected int mCollideLeft;
+    protected int mCollideTop;
+    protected int mCollideRight;
+    protected int mCollideBottom;
 
     protected long mLastUpdateTime;
 
@@ -69,21 +69,21 @@ public abstract class GameObject
 
     public int getCollideLeft()
     {
-        return collideLeft;
+        return mCollideLeft;
     }
 
     public int getCollideTop()
     {
-        return collideTop;
+        return mCollideTop;
     }
 
     public int getCollideRight()
     {
-        return collideRight;
+        return mCollideRight;
     }
 
     public int getCollideBottom()
     {
-        return collideBottom;
+        return mCollideBottom;
     }
 }

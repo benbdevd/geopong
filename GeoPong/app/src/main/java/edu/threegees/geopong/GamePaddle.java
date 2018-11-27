@@ -52,10 +52,10 @@ public class GamePaddle extends GameObject
         changeXBy(mXVelocity);
         changeYBy(mYVelocity);
 
-        collideLeft = (int) mXPosition;
-        collideTop = (int) mYPosition;
-        collideRight = (int) mXPosition + mWidth;
-        collideBottom = (int) mYPosition + mHeight;
+        mCollideLeft = (int) mXPosition;
+        mCollideTop = (int) mYPosition;
+        mCollideRight = (int) mXPosition + mWidth;
+        mCollideBottom = (int) mYPosition + mHeight;
 
         mLastUpdateTime = System.nanoTime();
     }

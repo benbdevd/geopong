@@ -105,9 +105,9 @@ public class OptionsMenuActivity extends AppCompatActivity implements View.OnCli
         }
 
         Intent intent = new Intent(this, GameActivity.class);
-        intent.putExtra(game_mode, mGameMode);
-        intent.putExtra(difficulty, mDifficulty);
-        intent.putExtra(score_limit, mScoreLimit);
+        GameView.pGameMode = mGameMode;
+        GameView.pDifficulty = mDifficulty;
+        GameView.pScoreLimit = mScoreLimit;
 
         startActivity(intent);
     }

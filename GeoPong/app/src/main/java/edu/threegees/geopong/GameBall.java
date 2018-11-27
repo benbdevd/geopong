@@ -2,13 +2,14 @@ package edu.threegees.geopong;
 
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.util.Log;
 
 import static edu.threegees.geopong.JConstants.*;
 
 
 public class GameBall extends GameObject
 {
+    private boolean isFirstUpdate = true;
+    private int initVelocity;
 
     //level will be the currentSpeed of the ball (how places per frame it move)
     public GameBall()
@@ -17,8 +18,8 @@ public class GameBall extends GameObject
         mXPosition = GameView.pGameWidth/2;
         mYPosition = GameView.pGameHeight/2;
 
-        mXVelocity = (float) INITIAL_SPEEDS[GameView.pDifficulty];
-        mYVelocity = (float) INITIAL_SPEEDS[GameView.pDifficulty];
+        mXVelocity = INITIAL_SPEEDS[GameView.getDifficulty()];
+        mYVelocity = INITIAL_SPEEDS[GameView.getDifficulty()];
     }
 
     @Override
@@ -27,20 +28,20 @@ public class GameBall extends GameObject
         changeXBy(mXVelocity);
         changeYBy(mYVelocity);
 
-        collideLeft = (int) mXPosition - PONG_BALL_RADIUS;
-        collideTop = (int) mYPosition - PONG_BALL_RADIUS;
-        collideRight = (int) mXPosition + PONG_BALL_RADIUS;
-        collideBottom = (int) mYPosition + PONG_BALL_RADIUS;
+        mCollideLeft = (int) mXPosition - PONG_BALL_RADIUS;
+        mCollideTop = (int) mYPosition - PONG_BALL_RADIUS;
+        mCollideRight = (int) mXPosition + PONG_BALL_RADIUS;
+        mCollideBottom = (int) mYPosition + PONG_BALL_RADIUS;
 
         /**
          * HANDLE COLLISION WITH WALLS (SPEED DOES NOT CHANGE)
          */
 
-        if(collideRight >= GameView.pGameWidth || collideLeft <= 0)
+        if(mCollideRight >= GameView.pGameWidth || mCollideLeft <= 0)
         {
             setXVelocity(-mXVelocity);
         }
-        if(collideBottom >= GameView.pGameHeight || collideTop <= 0)
+        if(mCollideBottom >= GameView.pGameHeight || mCollideTop <= 0)
         {
             setYVelocity(-mYVelocity);
         }
@@ -61,8 +62,6 @@ public class GameBall extends GameObject
 
     }
     */
-
-
 
     @Override
     public void draw(Canvas canvas, Paint paint)
