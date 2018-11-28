@@ -5,6 +5,11 @@ import android.graphics.Paint;
 
 import static edu.threegees.geopong.JConstants.*;
 
+/**
+ *  GameBall
+ *      CAN DRAW ITSELF
+ *      CAN UPDATE ITSELF
+ */
 
 public class GameBall extends GameObject
 {
@@ -24,6 +29,7 @@ public class GameBall extends GameObject
     {
         /**
          * HANDLE PADDLE COLLISIONS FIRST
+         * Should be moved to paddles checking so we can more easily get which paddle it collided with
          */
         for(GameObject paddle : GameView.allGameObj)
         {
@@ -48,38 +54,19 @@ public class GameBall extends GameObject
             }
         }
 
-        changeXBy(mXVelocity);
-        changeYBy(mYVelocity);
-
-        mCollideLeft = (int) mXPosition - PONG_BALL_RADIUS;
-        mCollideTop = (int) mYPosition - PONG_BALL_RADIUS;
-        mCollideRight = (int) mXPosition + PONG_BALL_RADIUS;
-        mCollideBottom = (int) mYPosition + PONG_BALL_RADIUS;
-
         /**
          * HANDLE COLLISION WITH WALLS (SPEED DOES NOT CHANGE)
          */
-        if(mCollideRight >= GameView.pGameWidth || mCollideLeft <= 0)
+        if(mXPosition + PONG_BALL_RADIUS >= GameView.pGameWidth || mXPosition - PONG_BALL_RADIUS <= 0)
         {
             setXVelocity(-mXVelocity);
         }
 
+        changeXBy(mXVelocity);
+        changeYBy(mYVelocity);
     }
 
-    /*
-    @Override
-    public void draw(Canvas canvas, Paint paint)
-    {
-
-        Random ran = new Random();
-        //ball Starting position randomly launches ball in a certain direction
-        //Think about adding bounds so as to not launch at max or min height
-        mYPosition = GAME_LENGTH/2;
-        mXPosition = (GAME_HEIGHT * ran.nextInt());
-
-    }
-    */
-
+    //Reset ball position to center
     public void reset()
     {
         setX(GameView.pGameWidth/2);

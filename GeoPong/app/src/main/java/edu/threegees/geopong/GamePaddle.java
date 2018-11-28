@@ -6,6 +6,12 @@ import android.graphics.Rect;
 
 import static edu.threegees.geopong.JConstants.*;
 
+/**
+ *  GamePaddle
+ *      CAN DRAW ITSELF
+ *      CAN UPDATE ITSELF
+ */
+
 public class GamePaddle extends GameObject
 {
     private Rect dimensions;
@@ -21,7 +27,7 @@ public class GamePaddle extends GameObject
         {
             case PADDLE_TYPE_HOME:
                 mXPosition = GameView.pGameWidth/2 - PONG_PADDLE_WIDTH/2;
-                mYPosition = GameView.pGameHeight - (PONG_PADDLE_HEIGHT + PADDLE_PADY);
+                mYPosition = GameView.pGameHeight - (PONG_PADDLE_HEIGHT + PADDLE_EDGE_PADDING);
 
                 mWidth = PONG_PADDLE_WIDTH;
                 mHeight = PONG_PADDLE_HEIGHT;
@@ -29,7 +35,7 @@ public class GamePaddle extends GameObject
 
             case PADDLE_TYPE_AWAY:
                 mXPosition = GameView.pGameWidth/2 - PONG_PADDLE_WIDTH/2;
-                mYPosition = (PONG_PADDLE_HEIGHT - PADDLE_PADY);
+                mYPosition = (PONG_PADDLE_HEIGHT - PADDLE_EDGE_PADDING);
 
                 mWidth = PONG_PADDLE_WIDTH;
                 mHeight = PONG_PADDLE_HEIGHT;
@@ -37,10 +43,10 @@ public class GamePaddle extends GameObject
 
             case PADDLE_TYPE_SP:
                 mXPosition = 0;
-                mYPosition = 10;
+                mYPosition = PADDLE_EDGE_PADDING;
 
                 mWidth = GameView.pGameWidth;
-                mHeight = (int) mYPosition + PONG_PADDLE_HEIGHT;
+                mHeight = PONG_PADDLE_HEIGHT;
                 break;
         }
 

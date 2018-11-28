@@ -5,6 +5,10 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import static edu.threegees.geopong.JConstants.*;
 
+/**
+ * SIMPLE ACTIVITY SHOWN AT END OF GAME
+ *      DISPLAYS MATCH RESULTS
+ */
 public class EndGameActivity extends AppCompatActivity
 {
 

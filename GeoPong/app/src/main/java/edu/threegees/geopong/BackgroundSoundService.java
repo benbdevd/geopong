@@ -9,6 +9,11 @@ import android.util.Log;
 
 import java.io.IOException;
 
+/**
+ * BackgroundSoundService
+ * @author Caitlin
+ */
+
 public class BackgroundSoundService extends Service
 {
     private static final String TAG = null;

@@ -12,11 +12,6 @@ public abstract class GameObject
     protected float mXVelocity;
     protected float mYVelocity;
 
-    protected int mCollideLeft;
-    protected int mCollideTop;
-    protected int mCollideRight;
-    protected int mCollideBottom;
-
     public GameObject()
     {
         GameView.allGameObj.add(this);
@@ -24,7 +19,7 @@ public abstract class GameObject
 
 
     /**
-     * TO IMPLEMENT: DELTA_TIME
+     * TO IMPLEMENT: DELTA_TIME if multiplayer
      */
     public void update()
     {
@@ -72,25 +67,5 @@ public abstract class GameObject
     public void changeYBy(float newY)
     {
         mYPosition += newY;
-    }
-
-    public int getCollideLeft()
-    {
-        return mCollideLeft;
-    }
-
-    public int getCollideTop()
-    {
-        return mCollideTop;
-    }
-
-    public int getCollideRight()
-    {
-        return mCollideRight;
-    }
-
-    public int getCollideBottom()
-    {
-        return mCollideBottom;
     }
 }

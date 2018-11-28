@@ -1,7 +1,6 @@
 package edu.threegees.geopong;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.location.Location;
 import android.location.LocationListener;
@@ -11,19 +10,20 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 
-import static edu.threegees.geopong.JConstants.*;
-
+/**
+ *  ACTIVITY AT THE TOP OF THE HIERARCHY FOR THE 'PONG GAME'
+ *      CREATES A GameView, LocationManager, LocationListner, and a MediaPlayer
+ *      SETS CONTENT VIEW TO THE mGameView
+ */
 
 public class GameActivity extends AppCompatActivity
 {
-    GameView gameView;
+    GameView mGameView;
 
     Location mCurLocation;
-    LocationManager locationManager;
-    LocationListener locationListener;
-    Handler mLocHandler;
+    LocationManager mLocationManager;
+    LocationListener mLocationListener;
 
     MediaPlayer mMediaPlayer;
 
@@ -34,15 +34,13 @@ public class GameActivity extends AppCompatActivity
         //force app to run in portrait for consistent experience on phone
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
-        gameView = new GameView(getApplicationContext());
+        mGameView = new GameView(getApplicationContext());
 
-        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        locationListener = createLocListener(gameView);
-        setLocationManagerRelation();
+        mLocationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        mLocationListener = createLocationListener(mGameView);
+        marryLocationListenerToManager();
 
-        mLocHandler = new Handler();
-
-        setContentView(gameView);
+        setContentView(mGameView);
     }
 
     @Override
@@ -56,14 +54,14 @@ public class GameActivity extends AppCompatActivity
         mMediaPlayer.start();
     }
     
-    public LocationListener createLocListener(final GameView gameView)
+    public LocationListener createLocationListener(final GameView gameView)
     {
         LocationListener locationListener = new LocationListener()
         {
             @Override
             public void onLocationChanged(Location location)
             {
-                Log.d("LOC_TEST", "CHANGED" + location.getLatitude());
+                Log.d("LOC_TEST", "CHANGED: " + location.getLatitude());
                 if(location != null && mCurLocation != null)
                 {
                     gameView.homePaddle.setX((float) location.getLongitude());
@@ -71,8 +69,8 @@ public class GameActivity extends AppCompatActivity
 
 
 
-                            ///(gameView.getCirX() + (float) (mCurLocation.getLatitude() - location.getLatitude()) * GPS_SCALE_FACTORS[GameView.pDifficulty]);
-                   // gameView.setCirY(gameView.getCirY() + (float) (mCurLocation.getLongitude() - location.getLongitude()) * GPS_SCALE_FACTORS[GameView.pDifficulty]);
+                            ///(mGameView.getCirX() + (float) (mCurLocation.getLatitude() - location.getLatitude()) * GPS_SCALE_FACTORS[GameView.pDifficulty]);
+                   // mGameView.setCirY(mGameView.getCirY() + (float) (mCurLocation.getLongitude() - location.getLongitude()) * GPS_SCALE_FACTORS[GameView.pDifficulty]);
                 }
 
                 mCurLocation = location;
@@ -88,7 +86,7 @@ public class GameActivity extends AppCompatActivity
             {
                 try
                 {
-                    mCurLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                    mCurLocation = mLocationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
                 }catch (SecurityException e)
                 {
                 }
@@ -103,14 +101,13 @@ public class GameActivity extends AppCompatActivity
         return locationListener;
     }
 
-    public void setLocationManagerRelation()
+    public void marryLocationListenerToManager()
     {
         try
         {
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
+            mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, mLocationListener);
         }catch (SecurityException e)
         {
-            Log.d("Security", e.getStackTrace().toString());
         }
     }
 

@@ -14,7 +14,7 @@ public class JConstants
     static final int[] SPEED_INCREMENTS = {1,1,1,1};
     static final int[] SPEED_CAPS = {10,20,30,40};
 
-    static final int PONG_BALL_RADIUS = 30;
+    static final int PONG_BALL_RADIUS = 25;
 
     static final int PADDLE_TYPE_HOME = 0;
     static final int PADDLE_TYPE_AWAY = 1;
@@ -24,8 +24,7 @@ public class JConstants
     static final int PONG_PADDLE_WIDTH = 270;
     static final int PONG_PADDLE_HEIGHT = 50;
 
-    static final int PADDLE_PADX = 25;
-    static final int PADDLE_PADY = 25;
+    static final int PADDLE_EDGE_PADDING = 35;
 
 
     static final int[] GPS_SCALE_FACTORS = {10000, 5000, 2500, 1000};
