@@ -11,6 +11,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 
+import static edu.threegees.geopong.JConstants.SPEED_INCREMENTS;
+
 /**
  *  ACTIVITY AT THE TOP OF THE HIERARCHY FOR THE 'PONG GAME'
  *      CREATES A GameView, LocationManager, LocationListner, and a MediaPlayer
@@ -47,9 +49,28 @@ public class GameActivity extends AppCompatActivity
     protected void onStart()
     {
         super.onStart();
-
         mMediaPlayer = new MediaPlayer();
-        mMediaPlayer = MediaPlayer.create(this, R.raw.geopong);
+
+        if(GameView.pDifficulty == 0)
+        {
+            //tempo 120
+            mMediaPlayer = MediaPlayer.create(this, R.raw.geopongtemposlowest);
+        }
+        else if(GameView.pDifficulty == 1)
+        {
+            //tempo 140
+            mMediaPlayer = MediaPlayer.create(this, R.raw.geopong);
+        }
+        else if(GameView.pDifficulty == 2)
+        {
+            //tempo 180
+            mMediaPlayer = MediaPlayer.create(this, R.raw.geopongtempofaster);
+        }
+        else
+        {
+            //tempo 200
+            mMediaPlayer = MediaPlayer.create(this, R.raw.geopongtempofastest);
+        }
         mMediaPlayer.setLooping(true);
         mMediaPlayer.start();
 
