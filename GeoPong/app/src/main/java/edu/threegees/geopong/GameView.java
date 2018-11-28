@@ -13,11 +13,9 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.content.res.ResourcesCompat;
 import android.util.AttributeSet;
 import android.view.View;
+import android.widget.ImageView;
 
 import java.util.ArrayList;
-
-import androidx.annotation.RecentlyNonNull;
-import androidx.annotation.RecentlyNullable;
 
 import static edu.threegees.geopong.JConstants.*;
 
@@ -95,26 +93,62 @@ public class GameView extends View
             obj.draw(canvas, mPaint);
         }
 
+        //TODO make this a single player only question
+        //Draws the lives for single player
+        setHearts();
 
-
+        mHearts[0].draw(canvas);
+        mHearts[1].draw(canvas);
+        mHearts[2].draw(canvas);
     }
 
-    public void drawHearts()
+    /**
+     * Once the newest version is up have an if statement for single player that decreases pLives by
+     * 1 each time.
+     */
+    public void setHearts()
     {
+        //TODO Have a variable that resets the lives
+        pLives = 1;
+
+        //for left and top -, for right and top +
+        int heartsize = pGameWidth/31;
+
+        //hearts height;
+        int heartsHeight = (pGameHeight/19) + 1;
+
+        //heart[0] location
+        int firstHeartX = pGameWidth/3;
+        //heart[1] location
+        int secondHeartX = pGameWidth/2;
+        //heart[2] location
+        int thirdHeartX = (pGameWidth/3) * 2;
         switch (GameView.pLives)
         {
             default:
-                
+                mHearts[0] = getResources().getDrawable(R.drawable.emptyheart, null);
+                mHearts[1] = getResources().getDrawable(R.drawable.emptyheart, null);
+                mHearts[2] = getResources().getDrawable(R.drawable.emptyheart, null);
                 break;
             case 3:
-
+                mHearts[0] = getResources().getDrawable(R.drawable.fullheart, null);
+                mHearts[1] = getResources().getDrawable(R.drawable.fullheart, null);
+                mHearts[2] = getResources().getDrawable(R.drawable.fullheart, null);
                 break;
             case 2:
-
+                mHearts[0] = getResources().getDrawable(R.drawable.fullheart, null);
+                mHearts[1] = getResources().getDrawable(R.drawable.fullheart, null);
+                mHearts[2] = getResources().getDrawable(R.drawable.emptyheart, null);
                 break;
             case 1:
-
+                mHearts[0] = getResources().getDrawable(R.drawable.fullheart, null);
+                mHearts[1] = getResources().getDrawable(R.drawable.emptyheart, null);
+                mHearts[2] = getResources().getDrawable(R.drawable.emptyheart, null);
                 break;
         }
+
+        mHearts[0].setBounds(firstHeartX -heartsize, heartsHeight - heartsize, firstHeartX + heartsize, heartsHeight + heartsize);
+        mHearts[1].setBounds(secondHeartX -heartsize, heartsHeight - heartsize, secondHeartX + heartsize, heartsHeight + heartsize);
+        mHearts[2].setBounds(thirdHeartX -heartsize, heartsHeight - heartsize, thirdHeartX + heartsize, heartsHeight + heartsize);
     }
 }
