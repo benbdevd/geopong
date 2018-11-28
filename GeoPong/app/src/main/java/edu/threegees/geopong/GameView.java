@@ -2,11 +2,22 @@ package edu.threegees.geopong;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.ColorFilter;
 import android.graphics.Paint;
+import android.graphics.Rect;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.content.res.ResourcesCompat;
 import android.util.AttributeSet;
 import android.view.View;
 
 import java.util.ArrayList;
+
+import androidx.annotation.RecentlyNonNull;
+import androidx.annotation.RecentlyNullable;
 
 import static edu.threegees.geopong.JConstants.*;
 
@@ -20,6 +31,9 @@ public class GameView extends View
 
     private GameBall gameBall;
 
+    private Drawable[] mHearts = new Drawable[3];
+
+
     public GamePaddle homePaddle = new GamePaddle(PADDLE_TYPE_HOME);
     //public GamePaddle awayPaddle = new GamePaddle(PADDLE_TYPE_AWAY);
     public GamePaddle singlePaddle = new GamePaddle(PADDLE_TYPE_SP);
@@ -30,6 +44,7 @@ public class GameView extends View
     public static int pGameMode;
     public static int pDifficulty;
     public static int pScoreLimit;
+    public static int pLives;
 
     public GameView(Context context)
     {
@@ -78,6 +93,28 @@ public class GameView extends View
         for(GameObject obj : allGameObj)
         {
             obj.draw(canvas, mPaint);
+        }
+
+
+
+    }
+
+    public void drawHearts()
+    {
+        switch (GameView.pLives)
+        {
+            default:
+                
+                break;
+            case 3:
+
+                break;
+            case 2:
+
+                break;
+            case 1:
+
+                break;
         }
     }
 }
