@@ -6,12 +6,9 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.media.MediaPlayer;
-import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-
-import static edu.threegees.geopong.JConstants.SPEED_INCREMENTS;
 
 /**
  *  ACTIVITY AT THE TOP OF THE HIERARCHY FOR THE 'PONG GAME'
@@ -38,9 +35,7 @@ public class GameActivity extends AppCompatActivity
 
         mGameView = new GameView(getApplicationContext());
 
-        mLocationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        mLocationListener = createLocationListener(mGameView);
-        marryLocationListenerToManager();
+        //startLocationControl();
 
         setContentView(mGameView);
     }
@@ -80,41 +75,69 @@ public class GameActivity extends AppCompatActivity
 
     }
 
-
     @Override
     protected void onPause()
     {
         super.onPause();
         mMediaPlayer.pause();
 
-        //kill the old activity or something
+        //KILL THE OLD GameView
+        mGameView = new GameView(getApplicationContext());
+
     }
 
     @Override
     protected void onResume()
     {
         super.onResume();
-        mMediaPlayer.start();
 
-        //Add something here to start a new one
+        //CHANGE TO NEW GameView
+        setContentView(mGameView);
+
+        mMediaPlayer.start();
+    }
+
+    public void startTouchControl()
+    {
+
+    }
+
+    public void startLocationControl()
+    {
+        mLocationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        mLocationListener = createLocationListener(mGameView);
+
+        try
+        {
+            mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, mLocationListener);
+        }catch (SecurityException e)
+        {
+        }
     }
     
     public LocationListener createLocationListener(final GameView gameView)
     {
         LocationListener locationListener = new LocationListener()
         {
+
+            /**
+             * VERY TEMPORARY TESTING IMPLEMENTATION
+             *
+             * JUST SETS THE PLAYER PADDLE X POSITION TO THE DEVICE LONGITUDE
+             *
+             * MUST CHANGE
+             * @param location
+             */
+
             @Override
             public void onLocationChanged(Location location)
             {
                 Log.d("LOC_TEST", "CHANGED: " + location.getLatitude());
                 if(location != null && mCurLocation != null)
                 {
-                    gameView.homePaddle.setX((float) location.getLongitude());
+                    gameView.pHomePaddle.setX((float) location.getLongitude());
 
-
-
-
-                            ///(mGameView.getCirX() + (float) (mCurLocation.getLatitude() - location.getLatitude()) * GPS_SCALE_FACTORS[GameView.pDifficulty]);
+                   ///(mGameView.getCirX() + (float) (mCurLocation.getLatitude() - location.getLatitude()) * GPS_SCALE_FACTORS[GameView.pDifficulty]);
                    // mGameView.setCirY(mGameView.getCirY() + (float) (mCurLocation.getLongitude() - location.getLongitude()) * GPS_SCALE_FACTORS[GameView.pDifficulty]);
                 }
 
@@ -146,15 +169,6 @@ public class GameActivity extends AppCompatActivity
         return locationListener;
     }
 
-    public void marryLocationListenerToManager()
-    {
-        try
-        {
-            mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, mLocationListener);
-        }catch (SecurityException e)
-        {
-        }
-    }
 
     /**
      * Method here to stop game and send to EndGameActivity?

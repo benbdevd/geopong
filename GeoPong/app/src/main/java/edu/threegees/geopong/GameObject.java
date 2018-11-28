@@ -14,9 +14,12 @@ public abstract class GameObject
     protected float mXVelocity;
     protected float mYVelocity;
 
-    public GameObject()
+    protected GameView mGameView;
+
+    public GameObject(GameView gameView)
     {
-        GameView.allGameObj.add(this);
+        this.mGameView = gameView;
+        gameView.pAllGameObjects.add(this);
     }
 
 

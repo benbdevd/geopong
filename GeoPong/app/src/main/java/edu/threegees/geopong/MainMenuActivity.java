@@ -69,8 +69,8 @@ public class MainMenuActivity extends AppCompatActivity
     private void onGameModeSelect()
     {
         Intent intent = new Intent(this, OptionsMenuActivity.class);
-        intent.putExtra(game_mode, mGameMode);
 
+        GameView.pGameMode = mGameMode;
         View thisLayout = findViewById(R.id.main_menu_layout);
         GameView.pGameHeight = thisLayout.getHeight();
         GameView.pGameWidth = thisLayout.getWidth();

@@ -4,6 +4,8 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
 
+import java.util.ArrayList;
+
 import static edu.threegees.geopong.JConstants.*;
 
 /**
@@ -14,14 +16,17 @@ import static edu.threegees.geopong.JConstants.*;
 
 public class GamePaddle extends GameObject
 {
-    private Rect dimensions;
+    private Rect mDimensions;
     private int mWidth;
     private int mHeight;
-    //Rect rect, boolean isHomePaddle
 
-    public GamePaddle(int paddleType)
+    public int mPaddleType;
+
+    public GamePaddle(GameView gameView, int paddleType)
     {
-        super();
+        super(gameView);
+
+        mPaddleType = paddleType;
 
         switch (paddleType)
         {
@@ -50,8 +55,7 @@ public class GamePaddle extends GameObject
                 break;
         }
 
-        dimensions = new Rect((int) mXPosition, (int) mYPosition, (int)mXPosition + mWidth, (int)mYPosition  + mHeight);
-
+        mDimensions = new Rect((int) mXPosition, (int) mYPosition, (int)mXPosition + mWidth, (int)mYPosition  + mHeight);
     }
 
     @Override
@@ -66,11 +70,21 @@ public class GamePaddle extends GameObject
     @Override
     public void draw(Canvas canvas, Paint paint)
     {
-        canvas.drawRect(dimensions, paint);
+        canvas.drawRect(mDimensions, paint);
     }
 
     public void setDimensions(int left, int top, int right, int bottom)
     {
-        dimensions.set(left, top, right, bottom);
+        mDimensions.set(left, top, right, bottom);
+    }
+
+    public int getWidth()
+    {
+        return mWidth;
+    }
+
+    public int getHeight()
+    {
+        return mHeight;
     }
 }

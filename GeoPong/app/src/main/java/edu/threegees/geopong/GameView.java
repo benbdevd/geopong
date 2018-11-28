@@ -23,18 +23,27 @@ import static edu.threegees.geopong.JConstants.*;
 public class GameView extends View
 {
     private android.os.Handler mHandler;
-    private Paint mPaint;
+    private Paint mWhitePaint;
 
-    public static ArrayList<GameObject> allGameObj = new ArrayList<>();
+    private GameBall mGameBall;
+    public GamePaddle pHomePaddle;
+    public GamePaddle pAwayPaddle;
 
-    private GameBall gameBall;
 
+<<<<<<< HEAD
     private Drawable[] mHearts = new Drawable[3];
 
 
     public GamePaddle homePaddle = new GamePaddle(PADDLE_TYPE_HOME);
     //public GamePaddle awayPaddle = new GamePaddle(PADDLE_TYPE_AWAY);
     public GamePaddle singlePaddle = new GamePaddle(PADDLE_TYPE_SP);
+=======
+    public int pLastPlayerToHit;
+    public int pHomeScore = 0;
+    public int pAwayScore = 0;
+
+    public ArrayList<GameObject> pAllGameObjects = new ArrayList<>();
+>>>>>>> WARNING: COLLISION BROKE BUT USEABLE FOR TESTING-ISH
 
     public static int pGameHeight;
     public static int pGameWidth;
@@ -48,13 +57,11 @@ public class GameView extends View
     {
         super(context);
         setWillNotDraw(false);
-        startGameThread();
+        startGame();
 
-        gameBall = new GameBall();
-
-        mPaint = new Paint();
+        mWhitePaint = new Paint();
         //SET PAINT COLOR TO WHITE
-        mPaint.setARGB(255, 255, 255, 255);
+        mWhitePaint.setARGB(255, 255, 255, 255);
     }
 
     public GameView(Context context, AttributeSet attrs)
@@ -62,15 +69,30 @@ public class GameView extends View
         super(context, attrs);
     }
 
-    public void startGameThread()
+    public void startGame()
     {
+        mGameBall = new GameBall(this);
+        pHomePaddle = new GamePaddle(this, PADDLE_TYPE_HOME);
+
+        switch (pGameMode)
+        {
+            case SINGLEPLAYER:
+                pAwayPaddle = new GamePaddle(this, PADDLE_TYPE_SP);
+                break;
+
+            case MULTI_LOCAL:
+            case MULTI_ONLINE:
+                pAwayPaddle = new GamePaddle(this, PADDLE_TYPE_AWAY);
+                break;
+        }
+
         mHandler = new android.os.Handler();
         mHandler.post(new Runnable()
         {
             @Override
             public void run()
             {
-                for(GameObject obj : allGameObj)
+                for(GameObject obj : pAllGameObjects)
                 {
                     obj.update();
                 }
@@ -88,9 +110,9 @@ public class GameView extends View
         //DRAW BLACK BACKGROUND
         canvas.drawARGB(255, 0, 0, 0);
 
-        for(GameObject obj : allGameObj)
+        for(GameObject obj : pAllGameObjects)
         {
-            obj.draw(canvas, mPaint);
+            obj.draw(canvas, mWhitePaint);
         }
 
         //TODO make this a single player only question
@@ -150,5 +172,10 @@ public class GameView extends View
         mHearts[0].setBounds(firstHeartX -heartsize, heartsHeight - heartsize, firstHeartX + heartsize, heartsHeight + heartsize);
         mHearts[1].setBounds(secondHeartX -heartsize, heartsHeight - heartsize, secondHeartX + heartsize, heartsHeight + heartsize);
         mHearts[2].setBounds(thirdHeartX -heartsize, heartsHeight - heartsize, thirdHeartX + heartsize, heartsHeight + heartsize);
+    }
+
+    public ArrayList<GameObject> getAllGameObjects()
+    {
+        return pAllGameObjects;
     }
 }

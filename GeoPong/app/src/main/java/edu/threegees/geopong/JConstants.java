@@ -2,10 +2,6 @@ package edu.threegees.geopong;
 
 public class JConstants
 {
-    static final String game_mode = "game_mode";
-    static final String difficulty = "difficulty";
-    static final String score_limit = "score_limit";
-
     static final int MULTI_ONLINE = 2;
     static final int MULTI_LOCAL = 1;
     static final int SINGLEPLAYER = 0;
@@ -13,6 +9,8 @@ public class JConstants
     static final int[] INITIAL_SPEEDS = {10,15,20,25};
     static final int[] SPEED_INCREMENTS = {1,1,1,1};
     static final int[] SPEED_CAPS = {10,20,30,40};
+
+    static final int STUPID_FAST = 100;
 
     static final int PONG_BALL_RADIUS = 25;
 
@@ -26,10 +24,14 @@ public class JConstants
 
     static final int PADDLE_EDGE_PADDING = 35;
 
+    static final int MINISCULE_BALL_PADDING = 1;
+
 
     static final int[] GPS_SCALE_FACTORS = {10000, 5000, 2500, 1000};
 
-    //UPDATE strings.xml score_limit_hint upon changing
+    /**
+     *  UPDATE strings.xml score_limit_hint upon changing DEFAULT_POINT_LIMIT !
+     */
     static final int DEFAULT_POINT_LIMIT = 15;
     static final int SINGLEPLAYER_INF_POINTS = -1;
 }

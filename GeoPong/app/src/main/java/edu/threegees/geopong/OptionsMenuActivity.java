@@ -14,7 +14,6 @@ import static edu.threegees.geopong.JConstants.*;
 
 public class OptionsMenuActivity extends AppCompatActivity implements View.OnClickListener
 {
-    private int mGameMode;
     private int mDifficulty;
     private int mScoreLimit;
 
@@ -22,11 +21,9 @@ public class OptionsMenuActivity extends AppCompatActivity implements View.OnCli
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        Intent intent = getIntent();
-        mGameMode = intent.getIntExtra("game_mode", SINGLEPLAYER);
 
         //if statement sets layout based on whether user chose Singleplayer or a Multiplayer mode
-        if(mGameMode == SINGLEPLAYER)
+        if(GameView.pGameMode == SINGLEPLAYER)
         {
             setContentView(R.layout.activity_options_menu_sp);
             mScoreLimit = SINGLEPLAYER_INF_POINTS;
@@ -88,7 +85,7 @@ public class OptionsMenuActivity extends AppCompatActivity implements View.OnCli
                 break;
         }
 
-        if(mGameMode != SINGLEPLAYER)
+        if(GameView.pGameMode != SINGLEPLAYER)
         {
             EditText editText = findViewById(R.id.score_limit_field);
             String scoreFieldText = editText.getText().toString();
@@ -105,7 +102,6 @@ public class OptionsMenuActivity extends AppCompatActivity implements View.OnCli
         }
 
         Intent intent = new Intent(this, GameActivity.class);
-        GameView.pGameMode = mGameMode;
         GameView.pDifficulty = mDifficulty;
         GameView.pScoreLimit = mScoreLimit;
 
