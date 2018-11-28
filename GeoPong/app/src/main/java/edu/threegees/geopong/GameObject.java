@@ -17,8 +17,15 @@ public abstract class GameObject
     protected int mCollideRight;
     protected int mCollideBottom;
 
-    protected long mLastUpdateTime;
+    public GameObject()
+    {
+        GameView.allGameObj.add(this);
+    }
 
+
+    /**
+     * TO IMPLEMENT: DELTA_TIME
+     */
     public void update()
     {
     }

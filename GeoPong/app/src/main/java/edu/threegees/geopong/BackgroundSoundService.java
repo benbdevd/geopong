@@ -14,12 +14,10 @@ public class BackgroundSoundService extends Service
     private static final String TAG = null;
     MediaPlayer mMediaPlayer;
 
-
     public IBinder onBind(Intent arg0)
     {
         return null;
     }
-
 
     @Override
     public void onCreate()

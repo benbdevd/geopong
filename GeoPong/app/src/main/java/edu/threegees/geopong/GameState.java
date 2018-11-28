@@ -9,6 +9,11 @@ public class GameState
 
     private boolean gameOver;
 
+    public void update()
+    {
+
+    }
+
     /*
     public void checkForCollision(GameObject obj1, GameObject obj2)
     {

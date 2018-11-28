@@ -6,6 +6,8 @@ import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.view.View;
 
+import java.util.ArrayList;
+
 import static edu.threegees.geopong.JConstants.*;
 
 
@@ -14,11 +16,13 @@ public class GameView extends View
     private android.os.Handler mHandler;
     private Paint mPaint;
 
+    public static ArrayList<GameObject> allGameObj = new ArrayList<>();
+
     private GameBall gameBall;
 
-    private GamePaddle gamePaddleH = new GamePaddle(PADDLE_TYPE_HOME);
-    private GamePaddle gamePaddleA = new GamePaddle(PADDLE_TYPE_AWAY);
-    private GamePaddle gamePaddleS = new GamePaddle(PADDLE_TYPE_SP);
+    public GamePaddle homePaddle = new GamePaddle(PADDLE_TYPE_HOME);
+    //public GamePaddle awayPaddle = new GamePaddle(PADDLE_TYPE_AWAY);
+    public GamePaddle singlePaddle = new GamePaddle(PADDLE_TYPE_SP);
 
     public static int pGameHeight;
     public static int pGameWidth;
@@ -53,7 +57,10 @@ public class GameView extends View
             @Override
             public void run()
             {
-                gameBall.update();
+                for(GameObject obj : allGameObj)
+                {
+                    obj.update();
+                }
                 invalidate();
 
                 mHandler.post(this);
@@ -67,24 +74,10 @@ public class GameView extends View
 
         //DRAW BLACK BACKGROUND
         canvas.drawARGB(255, 0, 0, 0);
-        gameBall.draw(canvas, mPaint);
-        //gamePaddleA.draw(canvas, mPaint);
-        gamePaddleS.draw(canvas, mPaint);
-        //gamePaddleH.draw(canvas, mPaint);
-    }
 
-    public static int getDifficulty()
-    {
-        return pDifficulty;
-    }
-
-    public static int getScoreLimit()
-    {
-        return pScoreLimit;
-    }
-
-    public static int getGameMode()
-    {
-        return pGameMode;
+        for(GameObject obj : allGameObj)
+        {
+            obj.draw(canvas, mPaint);
+        }
     }
 }

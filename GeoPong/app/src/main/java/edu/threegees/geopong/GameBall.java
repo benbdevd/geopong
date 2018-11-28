@@ -8,23 +8,46 @@ import static edu.threegees.geopong.JConstants.*;
 
 public class GameBall extends GameObject
 {
-    private boolean isFirstUpdate = true;
-    private int initVelocity;
-
-    //level will be the currentSpeed of the ball (how places per frame it move)
     public GameBall()
     {
         super();
+
         mXPosition = GameView.pGameWidth/2;
         mYPosition = GameView.pGameHeight/2;
 
-        mXVelocity = INITIAL_SPEEDS[GameView.getDifficulty()];
-        mYVelocity = INITIAL_SPEEDS[GameView.getDifficulty()];
+        mXVelocity = INITIAL_SPEEDS[GameView.pDifficulty];
+        mYVelocity = INITIAL_SPEEDS[GameView.pDifficulty];
     }
 
     @Override
     public void update()
     {
+        /**
+         * HANDLE PADDLE COLLISIONS FIRST
+         */
+        for(GameObject paddle : GameView.allGameObj)
+        {
+            if (paddle instanceof GamePaddle)
+            {
+                {
+                    if (mYPosition > paddle.getY() && mYPosition < paddle.getY() + PONG_PADDLE_HEIGHT)
+                    {
+                        if (mXPosition > paddle.getX() && mXPosition < paddle.getX() + PONG_PADDLE_WIDTH)
+                        {
+                            collideWithPaddle();
+                        }
+                    }
+                }
+            }
+            /**
+             *
+             */
+            if (mYPosition > GameView.pGameHeight || mYPosition < 0)
+            {
+                reset();
+            }
+        }
+
         changeXBy(mXVelocity);
         changeYBy(mYVelocity);
 
@@ -36,17 +59,11 @@ public class GameBall extends GameObject
         /**
          * HANDLE COLLISION WITH WALLS (SPEED DOES NOT CHANGE)
          */
-
         if(mCollideRight >= GameView.pGameWidth || mCollideLeft <= 0)
         {
             setXVelocity(-mXVelocity);
         }
-        if(mCollideBottom >= GameView.pGameHeight || mCollideTop <= 0)
-        {
-            setYVelocity(-mYVelocity);
-        }
 
-        mLastUpdateTime = System.nanoTime();
     }
 
     /*
@@ -63,10 +80,21 @@ public class GameBall extends GameObject
     }
     */
 
+    public void reset()
+    {
+        setX(GameView.pGameWidth/2);
+        setY(GameView.pGameHeight/2);
+    }
+
     @Override
     public void draw(Canvas canvas, Paint paint)
     {
         canvas.drawCircle(mXPosition, mYPosition, PONG_BALL_RADIUS, paint);
+    }
+
+    public void collideWithPaddle()
+    {
+        setYVelocity(-mYVelocity * SPEED_INCREMENTS[GameView.pDifficulty]);
     }
 
 }

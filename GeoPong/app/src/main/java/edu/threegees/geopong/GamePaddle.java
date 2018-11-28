@@ -15,22 +15,24 @@ public class GamePaddle extends GameObject
 
     public GamePaddle(int paddleType)
     {
+        super();
+
         switch (paddleType)
         {
             case PADDLE_TYPE_HOME:
-                mXPosition = GameView.pGameWidth - PADDLE_PADX;
-                mYPosition = GameView.pGameHeight - PADDLE_PADY;
+                mXPosition = GameView.pGameWidth/2 - PONG_PADDLE_WIDTH/2;
+                mYPosition = GameView.pGameHeight - (PONG_PADDLE_HEIGHT + PADDLE_PADY);
 
                 mWidth = PONG_PADDLE_WIDTH;
                 mHeight = PONG_PADDLE_HEIGHT;
                 break;
 
             case PADDLE_TYPE_AWAY:
-                mXPosition = PADDLE_PADX;
-                mYPosition = PADDLE_PADY;
+                mXPosition = GameView.pGameWidth/2 - PONG_PADDLE_WIDTH/2;
+                mYPosition = (PONG_PADDLE_HEIGHT - PADDLE_PADY);
 
-                mWidth = (int) mXPosition + PONG_PADDLE_WIDTH;
-                mHeight = (int) mYPosition + PONG_PADDLE_HEIGHT;
+                mWidth = PONG_PADDLE_WIDTH;
+                mHeight = PONG_PADDLE_HEIGHT;
                 break;
 
             case PADDLE_TYPE_SP:
@@ -42,7 +44,7 @@ public class GamePaddle extends GameObject
                 break;
         }
 
-        dimensions = new Rect((int) mXPosition, (int) mYPosition, mWidth, mHeight);
+        dimensions = new Rect((int) mXPosition, (int) mYPosition, (int)mXPosition + mWidth, (int)mYPosition  + mHeight);
 
     }
 
@@ -52,12 +54,7 @@ public class GamePaddle extends GameObject
         changeXBy(mXVelocity);
         changeYBy(mYVelocity);
 
-        mCollideLeft = (int) mXPosition;
-        mCollideTop = (int) mYPosition;
-        mCollideRight = (int) mXPosition + mWidth;
-        mCollideBottom = (int) mYPosition + mHeight;
-
-        mLastUpdateTime = System.nanoTime();
+        setDimensions((int) mXPosition, (int) mYPosition, (int)mXPosition + mWidth, (int)mYPosition  + mHeight);
     }
 
     @Override
