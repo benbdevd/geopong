@@ -44,7 +44,7 @@ public class GameActivity extends AppCompatActivity
     }
 
     @Override
-    public void onStart()
+    protected void onStart()
     {
         super.onStart();
 
@@ -52,6 +52,26 @@ public class GameActivity extends AppCompatActivity
         mMediaPlayer = MediaPlayer.create(this, R.raw.geopong);
         mMediaPlayer.setLooping(true);
         mMediaPlayer.start();
+
+    }
+
+
+    @Override
+    protected void onPause()
+    {
+        super.onPause();
+        mMediaPlayer.pause();
+
+        //kill the old activity or something
+    }
+
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
+        mMediaPlayer.start();
+
+        //Add something here to start a new one
     }
     
     public LocationListener createLocationListener(final GameView gameView)

@@ -3,6 +3,8 @@ package edu.threegees.geopong;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 
+import java.util.Random;
+
 import static edu.threegees.geopong.JConstants.*;
 
 /**
@@ -67,9 +69,12 @@ public class GameBall extends GameObject
     }
 
     //Reset ball position to center
+    //Change if you don't care for it but I'm adding a random element
     public void reset()
     {
-        setX(GameView.pGameWidth/2);
+        Random ran  = new Random();
+        setX(ran.nextInt(GameView.pGameWidth - 30) + 30);
+        //setX(GameView.pGameWidth/2);
         setY(GameView.pGameHeight/2);
     }
 

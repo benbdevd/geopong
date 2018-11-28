@@ -21,4 +21,8 @@ public class EndGameActivity extends AppCompatActivity
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
     }
 
+    /*
+    Caitlin will work on this tomorrow
+     */
+
 }

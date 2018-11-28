@@ -3,7 +3,9 @@ package edu.threegees.geopong;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 
-
+/**
+ *  Abstract class for the game objects
+ */
 public abstract class GameObject
 {
     protected float mXPosition;
