@@ -45,6 +45,10 @@ public class GameActivity extends AppCompatActivity
         setContentView(mGameView);
     }
 
+    /**
+     * At the moment this only deals with the music part of the game
+     * Maybe move some stuff from onCreate here?
+     */
     @Override
     protected void onStart()
     {
@@ -151,6 +155,10 @@ public class GameActivity extends AppCompatActivity
         {
         }
     }
+
+    /**
+     * Method here to stop game and send to EndGameActivity?
+     */
 
 
 }

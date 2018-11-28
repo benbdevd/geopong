@@ -91,7 +91,7 @@ public class GameBall extends GameObject
     {
         setYVelocity(-mYVelocity * SPEED_INCREMENTS[GameView.pDifficulty]);
 
-        /*We'll want to put this stuff inside GamePaddle once we get everything working there
+        /*We'll want a boolean variable here to make the sound effect
         NOTE: this will crash the program if we put it here. So don't
         mPongHit = new MediaPlayer();
         mPongHit = MediaPlayer.create(this, R.raw.pongpaddlehit);

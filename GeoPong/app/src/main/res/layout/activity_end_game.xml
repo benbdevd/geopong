@@ -32,6 +32,8 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:id="@+id/return_to_main_menu"
+        android:onClick="onClickMainMenu"
         android:text="@string/return_main_menu"/>
 
 </LinearLayout>

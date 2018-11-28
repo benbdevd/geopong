@@ -1,8 +1,11 @@
 package edu.threegees.geopong;
 
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+
 import static edu.threegees.geopong.JConstants.*;
 
 /**
@@ -21,8 +24,33 @@ public class EndGameActivity extends AppCompatActivity
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
     }
 
-    /*
-    Caitlin will work on this tomorrow
+    /**
+     * This should send the user back to MainMenuActivity when the user presses the button
+     * @param view
      */
+    public void onClickMainMenu(View view)
+    {
+        Intent intent = new Intent(this, MainMenuActivity.class);
+
+        startActivity(intent);
+    }
+
+    @Override
+    public void onStart()
+    {
+        super.onStart();
+    }
+
+    @Override
+    public void onPause()
+    {
+        super.onPause();
+    }
+
+    @Override
+    public void onResume()
+    {
+        super.onResume();
+    }
 
 }
