@@ -2,6 +2,7 @@ package edu.threegees.geopong;
 
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.media.MediaPlayer;
 
 import java.util.Random;
 
@@ -15,6 +16,7 @@ import static edu.threegees.geopong.JConstants.*;
 
 public class GameBall extends GameObject
 {
+
     public GameBall()
     {
         super();
@@ -73,6 +75,7 @@ public class GameBall extends GameObject
     public void reset()
     {
         Random ran  = new Random();
+        //The +- 30 is to prevent the ball from spawning inside the wall
         setX(ran.nextInt(GameView.pGameWidth - 30) + 30);
         //setX(GameView.pGameWidth/2);
         setY(GameView.pGameHeight/2);
@@ -87,6 +90,12 @@ public class GameBall extends GameObject
     public void collideWithPaddle()
     {
         setYVelocity(-mYVelocity * SPEED_INCREMENTS[GameView.pDifficulty]);
+
+        /*We'll want to put this stuff inside GamePaddle once we get everything working there
+        NOTE: this will crash the program if we put it here. So don't
+        mPongHit = new MediaPlayer();
+        mPongHit = MediaPlayer.create(this, R.raw.pongpaddlehit);
+        mPongHit.start();*/
     }
 
 }
