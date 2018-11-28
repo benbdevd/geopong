@@ -29,21 +29,13 @@ public class GameView extends View
     public GamePaddle pHomePaddle;
     public GamePaddle pAwayPaddle;
 
-
-<<<<<<< HEAD
     private Drawable[] mHearts = new Drawable[3];
 
-
-    public GamePaddle homePaddle = new GamePaddle(PADDLE_TYPE_HOME);
-    //public GamePaddle awayPaddle = new GamePaddle(PADDLE_TYPE_AWAY);
-    public GamePaddle singlePaddle = new GamePaddle(PADDLE_TYPE_SP);
-=======
     public int pLastPlayerToHit;
     public int pHomeScore = 0;
     public int pAwayScore = 0;
 
     public ArrayList<GameObject> pAllGameObjects = new ArrayList<>();
->>>>>>> WARNING: COLLISION BROKE BUT USEABLE FOR TESTING-ISH
 
     public static int pGameHeight;
     public static int pGameWidth;
