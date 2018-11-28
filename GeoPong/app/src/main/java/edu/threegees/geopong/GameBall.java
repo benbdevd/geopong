@@ -66,6 +66,16 @@ public class GameBall extends GameObject
             setXVelocity(-mXVelocity);
         }
 
+        /**
+         * HANDLES COLLISIONS WITH UPPER BOUND FOR SINGLE PLAYER ONLY
+         * Doesn't work though
+         */
+        if(GameView.pGameMode == JConstants.SINGLEPLAYER && mYPosition - PONG_BALL_RADIUS >= GameView.pGameHeight)
+        {
+            setYVelocity(-mYVelocity);
+            System.out.println("I'm being called!");
+        }
+
         changeXBy(mXVelocity);
         changeYBy(mYVelocity);
     }

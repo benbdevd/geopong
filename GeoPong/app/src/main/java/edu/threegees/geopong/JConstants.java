@@ -11,7 +11,7 @@ public class JConstants
     static final int SINGLEPLAYER = 0;
 
     static final int[] INITIAL_SPEEDS = {10,20,30,40};
-    static final int[] SPEED_INCREMENTS = {1,1,1,1};
+    static final int[] SPEED_INCREMENTS = {1,1,2,2};
     static final int[] SPEED_CAPS = {10,20,30,40};
 
     static final int PONG_BALL_RADIUS = 25;
