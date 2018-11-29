@@ -126,7 +126,7 @@ public class GameView extends View
         pLives = 1;
 
         //for left and top -, for right and top +
-        int heartsize = pGameWidth/31;
+        int heartSize = pGameWidth/31;
 
         //hearts height;
         int heartsHeight = (pGameHeight/19) + 1;
@@ -161,9 +161,9 @@ public class GameView extends View
                 break;
         }
 
-        mHearts[0].setBounds(firstHeartX -heartsize, heartsHeight - heartsize, firstHeartX + heartsize, heartsHeight + heartsize);
-        mHearts[1].setBounds(secondHeartX -heartsize, heartsHeight - heartsize, secondHeartX + heartsize, heartsHeight + heartsize);
-        mHearts[2].setBounds(thirdHeartX -heartsize, heartsHeight - heartsize, thirdHeartX + heartsize, heartsHeight + heartsize);
+        mHearts[0].setBounds(firstHeartX -heartSize, heartsHeight - heartSize, firstHeartX + heartSize, heartsHeight + heartSize);
+        mHearts[1].setBounds(secondHeartX -heartSize, heartsHeight - heartSize, secondHeartX + heartSize, heartsHeight + heartSize);
+        mHearts[2].setBounds(thirdHeartX -heartSize, heartsHeight - heartSize, thirdHeartX + heartSize, heartsHeight + heartSize);
     }
 
     public ArrayList<GameObject> getAllGameObjects()

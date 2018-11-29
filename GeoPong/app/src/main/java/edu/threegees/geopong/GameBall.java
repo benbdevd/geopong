@@ -16,6 +16,8 @@ import static edu.threegees.geopong.JConstants.*;
 
 public class GameBall extends GameObject
 {
+    private boolean isGoingUp;
+
     public GameBall(GameView gameView)
     {
         super(gameView);
@@ -30,31 +32,15 @@ public class GameBall extends GameObject
     @Override
     public void update()
     {
-        boolean isGoingUp = mYVelocity < 0;
-        boolean collideY;
-        boolean collideX;
-
+        /**
+         * HANDLE COLLISION WITH WALLS (SPEED DOES NOT CHANGE)
+         */
         checkGameBounds();
 
         /**
-         * HANDLE PADDLE COLLISIONS FIRST
-         * Should be moved to paddles checking so we can more easily get which paddle it collided with
+         * HANDLE PADDLE COLLISIONS (SPEED CHANGES)
          */
-
-        for (GameObject paddle : mGameView.pAllGameObjects)
-        {
-            if(paddle instanceof GamePaddle)
-            {
-                int paddleType = ((GamePaddle) paddle).mPaddleType;
-
-                collideY = mYPosition  > paddle.getY() && mYPosition < paddle.getY() + PONG_PADDLE_HEIGHT;
-
-                if(collideY)
-                {
-                    collideWithPaddle(paddleType);
-                }
-            }
-        }
+        checkPaddleCollisions();
 
         if (mYPosition > GameView.pGameHeight || mYPosition < 0)
         {
@@ -75,16 +61,6 @@ public class GameBall extends GameObject
             respawnBall();
         }
 
-        /**
-         * HANDLE COLLISION WITH WALLS (SPEED DOES NOT CHANGE)
-         */
-        /*
-        if (mXPosition + PONG_BALL_RADIUS >= GameView.pGameWidth || mXPosition - PONG_BALL_RADIUS <= 0)
-        {
-            collideWithWall();
-        }
-        */
-
         changeXBy(mXVelocity);
         changeYBy(mYVelocity);
     }
@@ -98,6 +74,9 @@ public class GameBall extends GameObject
         setX(ran.nextInt(GameView.pGameWidth - 30) + 30);
         //setX(GameView.pGameWidth/2);
         setY(GameView.pGameHeight / 2);
+
+        mXVelocity = INITIAL_SPEEDS[GameView.pDifficulty];
+        mYVelocity = INITIAL_SPEEDS[GameView.pDifficulty];
     }
 
     @Override
@@ -106,14 +85,68 @@ public class GameBall extends GameObject
         canvas.drawCircle(mXPosition, mYPosition, PONG_BALL_RADIUS, paint);
     }
 
-    public void checkPaddleCollision()
+    public void checkPaddleCollisions()
     {
+        isGoingUp = mYVelocity < 0;
+        boolean collideY;
+        boolean collideX1;
+        boolean collideX2;
 
+        for (GameObject paddle : mGameView.pAllGameObjects)
+        {
+            if (paddle instanceof GamePaddle)
+            {
+                int paddleType = ((GamePaddle) paddle).mPaddleType;
+
+                collideX1 = mXPosition + PONG_BALL_RADIUS > paddle.getX() && mXPosition + PONG_BALL_RADIUS < paddle.getX() + ((GamePaddle) paddle).getWidth();
+                collideX2 = mXPosition - PONG_BALL_RADIUS > paddle.getX() && mXPosition - PONG_BALL_RADIUS < paddle.getX() + ((GamePaddle) paddle).getWidth();
+
+                if (isGoingUp)
+                {
+                    collideY = mYPosition - PONG_BALL_RADIUS > paddle.getY() && mYPosition - PONG_BALL_RADIUS < paddle.getY() + ((GamePaddle) paddle).getHeight();
+                }
+                else
+                {
+                    collideY = mYPosition + PONG_BALL_RADIUS > paddle.getY() && mYPosition + PONG_BALL_RADIUS < paddle.getY() + ((GamePaddle) paddle).getHeight();
+                }
+
+                if (collideY && (collideX1 || collideX2))
+                {
+                    collideWithPaddle(paddleType);
+                }
+            }
+        }
     }
 
     public void collideWithPaddle(int paddleType)
     {
-        mYVelocity = (-mYVelocity + SPEED_INCREMENTS[GameView.pDifficulty]);
+        if(Math.abs(mYVelocity) <= SPEED_CAPS[GameView.pDifficulty])
+        {
+            switch (paddleType)
+            {
+                case PADDLE_TYPE_HOME:
+                    mYVelocity += SPEED_INCREMENTS[GameView.pDifficulty];
+                    break;
+
+                default:
+                    mYVelocity -= SPEED_INCREMENTS[GameView.pDifficulty];
+                    break;
+            }
+        }
+        else
+        {
+            switch (paddleType)
+            {
+                case PADDLE_TYPE_HOME:
+                    mYVelocity = SPEED_CAPS[GameView.pDifficulty];
+                    break;
+
+                default:
+                    mYVelocity = - SPEED_CAPS[GameView.pDifficulty];
+                    break;
+            }
+        }
+        setYVelocity(-mYVelocity);
     }
 
     public void checkGameBounds()

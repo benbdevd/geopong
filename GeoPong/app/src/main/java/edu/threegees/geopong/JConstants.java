@@ -7,10 +7,8 @@ public class JConstants
     static final int SINGLEPLAYER = 0;
 
     static final int[] INITIAL_SPEEDS = {10,15,20,25};
-    static final int[] SPEED_INCREMENTS = {1,1,1,1};
+    static final int[] SPEED_INCREMENTS = {2,4,8,16};
     static final int[] SPEED_CAPS = {10,20,30,40};
-
-    static final int STUPID_FAST = 100;
 
     static final int PONG_BALL_RADIUS = 25;
 
@@ -21,6 +19,9 @@ public class JConstants
 
     static final int PONG_PADDLE_WIDTH = 270;
     static final int PONG_PADDLE_HEIGHT = 50;
+
+    //static final int SINGLE_PADDLE_HEIGHT = 50;
+
 
     static final int PADDLE_EDGE_PADDING = 35;
 
