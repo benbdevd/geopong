@@ -16,6 +16,7 @@ public class GameView extends View
 {
     private android.os.Handler mHandler;
     private Paint mWhitePaint;
+    private GameActivity mGameActivity;
 
     private GameBall mGameBall;
     public GamePaddle pHomePaddle;
@@ -37,12 +38,32 @@ public class GameView extends View
     public static int pGameMode;
     public static int pDifficulty;
     public static int pScoreLimit;
+    public static long pGameStartTime;
+    public static long pGameEndTime;
+    public boolean isGameOn = true;
 
-    public GameView(Context context)
+    /**
+     * HEART DISPLAY CONSTANTS
+     */
+    //for left and top -, for right and top +
+    private final int HEART_SIZE = (int) (pGameWidth / (double) HEART_SIZE_DENOMINATOR);
+    //hearts height;
+    private final int HEART_HEIGHT = (int) (pGameHeight / (double) HEART_HEIGHT_DENOMINATOR) - HEART_HEIGHT_ADJUSTMENT;
+    //heart[0] location
+    private final int FIRST_HEART_X = pGameWidth / 3;
+    //heart[1] location
+    private final int SECOND_HEART_X = pGameWidth / 2;
+    //heart[2] location
+    private final int THIRD_HEAR_X = (pGameWidth / 3) * 2;
+
+
+    public GameView(Context context, GameActivity gameActivity)
     {
         super(context);
         setWillNotDraw(false);
         startGame();
+
+        mGameActivity = gameActivity;
 
         mWhitePaint = new Paint();
         //SET PAINT COLOR TO WHITE
@@ -56,6 +77,9 @@ public class GameView extends View
 
     public void startGame()
     {
+        isGameOn = true;
+        pGameStartTime = System.nanoTime();
+
         mGameBall = new GameBall(this);
         pHomePaddle = new GamePaddle(this, PADDLE_TYPE_HOME);
 
@@ -72,35 +96,54 @@ public class GameView extends View
                 break;
         }
 
+        /**
+         * THREAD THAT UPDATES GAME STATE \/
+         */
+
         mHandler = new android.os.Handler();
         mHandler.post(new Runnable()
         {
             @Override
             public void run()
             {
-                for(GameObject obj : pAllGameObjects)
+                if(isGameOn)
                 {
-                    obj.update();
-                }
-                invalidate();
+                    if (mLives == 0)
+                    {
+                        stopGame();
+                    }
 
-                mHandler.post(this);
+                    for (GameObject obj : pAllGameObjects)
+                    {
+                        obj.update();
+                    }
+                    invalidate();
+
+                    mHandler.post(this);
+                }
             }
         });
     }
 
-    public void setHomePaddlePos(int xPos)
+    public void stopGame()
     {
-        pHomePaddle.setXPos(xPos);
+        isGameOn = false;
+
+        pGameEndTime = System.nanoTime();
+        long gameDuration = pGameEndTime - pGameStartTime;
+
+        mGameActivity.onGameEnd(gameDuration);
     }
 
-    public void onDraw(Canvas canvas) {
+    public void onDraw(Canvas canvas)
+    {
         super.onDraw(canvas);
 
         //DRAW BLACK BACKGROUND
         canvas.drawARGB(255, 0, 0, 0);
 
-        for (GameObject obj : pAllGameObjects) {
+        for (GameObject obj : pAllGameObjects)
+        {
             obj.draw(canvas, mWhitePaint);
         }
 
@@ -119,20 +162,6 @@ public class GameView extends View
      */
     public void updateHearts()
     {
-        mLives = mLives - mGameBall.getTimesResetCalled();
-
-        //for left and top -, for right and top +
-        int heartSize = (int) (pGameWidth/(double)HEART_SIZE_DENOMINATOR);
-
-        //hearts height;
-        int heartsHeight = (int) (pGameHeight/(double)HEART_HEIGHT_DENOMINATOR) - HEART_HEIGHT_ADJUSTMENT;
-
-        //heart[0] location
-        int firstHeartX = pGameWidth/3;
-        //heart[1] location
-        int secondHeartX = pGameWidth/2;
-        //heart[2] location
-        int thirdHeartX = (pGameWidth/3) * 2;
         switch (mLives)
         {
             case 3:
@@ -150,22 +179,21 @@ public class GameView extends View
                 mHearts[1] = getResources().getDrawable(R.drawable.emptyheart, null);
                 mHearts[2] = getResources().getDrawable(R.drawable.emptyheart, null);
                 break;
-                /*
+
             default:
                 mHearts[0] = getResources().getDrawable(R.drawable.emptyheart, null);
                 mHearts[1] = getResources().getDrawable(R.drawable.emptyheart, null);
                 mHearts[2] = getResources().getDrawable(R.drawable.emptyheart, null);
                 break;
-                */
         }
 
-        mHearts[0].setBounds(firstHeartX -heartSize, heartsHeight - heartSize, firstHeartX + heartSize, heartsHeight + heartSize);
-        mHearts[1].setBounds(secondHeartX -heartSize, heartsHeight - heartSize, secondHeartX + heartSize, heartsHeight + heartSize);
-        mHearts[2].setBounds(thirdHeartX -heartSize, heartsHeight - heartSize, thirdHeartX + heartSize, heartsHeight + heartSize);
+        mHearts[0].setBounds(FIRST_HEART_X - HEART_SIZE, HEART_HEIGHT - HEART_SIZE, FIRST_HEART_X + HEART_SIZE, HEART_HEIGHT + HEART_SIZE);
+        mHearts[1].setBounds(SECOND_HEART_X - HEART_SIZE, HEART_HEIGHT - HEART_SIZE, SECOND_HEART_X + HEART_SIZE, HEART_HEIGHT + HEART_SIZE);
+        mHearts[2].setBounds(THIRD_HEAR_X - HEART_SIZE, HEART_HEIGHT - HEART_SIZE, THIRD_HEAR_X + HEART_SIZE, HEART_HEIGHT + HEART_SIZE);
     }
 
-    public ArrayList<GameObject> getAllGameObjects()
+    public void setHomePaddlePos(int xPos)
     {
-        return pAllGameObjects;
+        pHomePaddle.setXPos(xPos);
     }
 }

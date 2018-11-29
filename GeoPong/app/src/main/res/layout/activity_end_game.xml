@@ -17,17 +17,32 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="38sp"
-            android:text="'Player' Won"/>
+            android:text="@string/game_over"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:textSize="30sp"
-            android:text="HOME 10 : 25 AWAY"
+            android:text="@string/final_score"
+            android:paddingTop="30dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/score_display"
+            android:gravity="center"
+            android:textSize="28sp"
             android:paddingBottom="40dp"/>
 
     </LinearLayout>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/play_again"
+        android:onClick="onClickReplay"
+        android:text="@string/play_again"/>
 
     <Button
         android:layout_width="wrap_content"

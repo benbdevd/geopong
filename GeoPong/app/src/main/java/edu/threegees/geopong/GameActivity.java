@@ -23,7 +23,6 @@ import static edu.threegees.geopong.JConstants.*;
 
 public class GameActivity extends AppCompatActivity
 {
-
     GameView mGameView;
 
     Location mCurLocation;
@@ -39,7 +38,7 @@ public class GameActivity extends AppCompatActivity
         //force app to run in portrait for consistent experience on phone
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
-        mGameView = new GameView(getApplicationContext());
+        mGameView = new GameView(getApplicationContext(), this);
 
         //startLocationControl();
 
@@ -87,8 +86,8 @@ public class GameActivity extends AppCompatActivity
         mMediaPlayer.pause();
 
         //KILL THE OLD GameView
-        mGameView = new GameView(getApplicationContext());
-
+        mGameView.isGameOn = false;
+        mGameView = new GameView(getApplicationContext(), this);
     }
 
     @Override
@@ -130,7 +129,7 @@ public class GameActivity extends AppCompatActivity
         switch (event.getAction())
         {
             case MotionEvent.ACTION_MOVE:
-                mGameView.setHomePaddlePos((int) xPos);
+                mGameView.setHomePaddlePos((int) (xPos - (PONG_PADDLE_WIDTH / 2.0)));
                 //TODO add multiplayer logic here
                 break;
         }
@@ -196,14 +195,15 @@ public class GameActivity extends AppCompatActivity
     /**
      * If certain conditions are met the game activity will end and the player will be sent to the
      * EndGameActivity
-     * @param view
      */
-    public void onGameEnd(View view)
+    public void onGameEnd(long gameDuration)
     {
         Intent intent = new Intent(this, EndGameActivity.class);
+        intent.putExtra(TAG_GAME_DIFFICULTY, mGameView.pDifficulty);
+        intent.putExtra(TAG_GAME_DURATION, gameDuration);
+
+        Log.d("TAG11", ": dur" + gameDuration +", dif: " + mGameView.pDifficulty);
 
         startActivity(intent);
     }
-
-
 }

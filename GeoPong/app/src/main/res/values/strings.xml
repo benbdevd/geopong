@@ -15,7 +15,11 @@
     <string name="difficulty_3">HARD</string>
     <string name="difficulty_4">IMPOSSIBLE</string>
 
+
+    <string name="game_over">GAME OVER</string>
+    <string name="final_score">FINAL SCORE</string>
     <string name="return_main_menu">RETURN TO\nMAIN MENU</string>
+    <string name="play_again">PLAY AGAIN</string>
 
     <string name="options_menu_toolbar_label">Select Match Options</string>
     <string name="title_activity_options_menu">OptionsMenuActivity</string>

@@ -44,23 +44,37 @@ public class GameBall extends GameObject
          */
         checkPaddleCollisions();
 
+        /**
+         *  IF BALL GOES PAST A PADDLE, RESPAWN BALL
+         */
         if (mYPosition > GameView.pGameHeight || mYPosition < 0)
         {
+            respawnBall();
+
+            /**
+             * CHECK FOR WHICH PADDLE HIT THE BALL TO ASSIGN POINTS/TAKE LIVES
+             */
+
+            /*
             switch (mGameView.pLastPlayerToHit)
             {
                 case PADDLE_TYPE_SP:
+                    mGameView.mLives--;
                     break;
 
                 case PADDLE_TYPE_AWAY:
+                    //AWAY POINTS++
                     break;
 
                 case PADDLE_TYPE_HOME:
+                    //HOME POINTS++
                     break;
 
                 default:
+                    mGameView.mLives--;
                     break;
             }
-            respawnBall();
+            */
         }
 
         changeXBy(mXVelocity);
@@ -71,6 +85,8 @@ public class GameBall extends GameObject
     //Change if you don't care for it but I'm adding a random element
     public void respawnBall()
     {
+        mGameView.mLives--;
+
         Random ran = new Random();
         //The +- 30 is to prevent the ball from spawning inside the wall
         setX(ran.nextInt(GameView.pGameWidth - 30) + 30);
@@ -79,8 +95,6 @@ public class GameBall extends GameObject
 
         mXVelocity = INITIAL_SPEEDS[GameView.pDifficulty];
         mYVelocity = INITIAL_SPEEDS[GameView.pDifficulty];
-
-        mTimesResetCalled++;
     }
 
 
@@ -125,6 +139,8 @@ public class GameBall extends GameObject
 
     public void collideWithPaddle(int paddleType)
     {
+        mGameView.pLastPlayerToHit = paddleType;
+
         if(Math.abs(mYVelocity) <= SPEED_CAPS[GameView.pDifficulty])
         {
             switch (paddleType)
