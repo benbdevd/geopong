@@ -1,6 +1,7 @@
 package edu.threegees.geopong;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.location.Location;
 import android.location.LocationListener;
@@ -192,10 +193,17 @@ public class GameActivity extends AppCompatActivity
         return locationListener;
     }
 
-
     /**
-     * Method here to stop game and send to EndGameActivity?
+     * If certain conditions are met the game activity will end and the player will be sent to the
+     * EndGameActivity
+     * @param view
      */
+    public void onGameEnd(View view)
+    {
+        Intent intent = new Intent(this, EndGameActivity.class);
+
+        startActivity(intent);
+    }
 
 
 }

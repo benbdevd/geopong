@@ -18,6 +18,8 @@ public class GameBall extends GameObject
 {
     private boolean isGoingUp;
 
+    private int mTimesResetCalled = 0;
+
     public GameBall(GameView gameView)
     {
         super(gameView);
@@ -77,7 +79,10 @@ public class GameBall extends GameObject
 
         mXVelocity = INITIAL_SPEEDS[GameView.pDifficulty];
         mYVelocity = INITIAL_SPEEDS[GameView.pDifficulty];
+
+        mTimesResetCalled++;
     }
+
 
     @Override
     public void draw(Canvas canvas, Paint paint)
@@ -166,5 +171,10 @@ public class GameBall extends GameObject
     public void collideWithWall()
     {
         setXVelocity(-mXVelocity);
+    }
+
+    public int getTimesResetCalled()
+    {
+        return mTimesResetCalled;
     }
 }

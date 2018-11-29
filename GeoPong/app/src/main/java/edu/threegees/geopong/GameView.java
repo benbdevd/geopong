@@ -31,6 +31,8 @@ public class GameView extends View
 
     private Drawable[] mHearts = new Drawable[3];
 
+    public int mLives;
+
     public int pLastPlayerToHit;
     public static int pHomeScore = 0;
     public static int pAwayScore = 0;
@@ -43,7 +45,6 @@ public class GameView extends View
     public static int pGameMode;
     public static int pDifficulty;
     public static int pScoreLimit;
-    public static int pLives;
 
     public GameView(Context context)
     {
@@ -70,6 +71,7 @@ public class GameView extends View
         {
             case SINGLEPLAYER:
                 pAwayPaddle = new GamePaddle(this, PADDLE_TYPE_SP);
+                mLives = 3;
                 break;
 
             case MULTI_LOCAL:
@@ -100,15 +102,13 @@ public class GameView extends View
         pHomePaddle.setXPos(xPos);
     }
 
-    public void onDraw(Canvas canvas)
-    {
+    public void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
         //DRAW BLACK BACKGROUND
         canvas.drawARGB(255, 0, 0, 0);
 
-        for(GameObject obj : pAllGameObjects)
-        {
+        for (GameObject obj : pAllGameObjects) {
             obj.draw(canvas, mWhitePaint);
         }
 
@@ -127,8 +127,7 @@ public class GameView extends View
      */
     public void setHearts()
     {
-        //TODO Have a variable that resets the lives
-        pLives = 1;
+        mLives = mLives - mGameBall.getTimesResetCalled();
 
         //for left and top -, for right and top +
         int heartSize = pGameWidth/31;
@@ -142,7 +141,7 @@ public class GameView extends View
         int secondHeartX = pGameWidth/2;
         //heart[2] location
         int thirdHeartX = (pGameWidth/3) * 2;
-        switch (GameView.pLives)
+        switch (mLives)
         {
             default:
                 mHearts[0] = getResources().getDrawable(R.drawable.emptyheart, null);
