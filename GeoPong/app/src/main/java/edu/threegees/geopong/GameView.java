@@ -32,8 +32,8 @@ public class GameView extends View
     private Drawable[] mHearts = new Drawable[3];
 
     public int pLastPlayerToHit;
-    public int pHomeScore = 0;
-    public int pAwayScore = 0;
+    public static int pHomeScore = 0;
+    public static int pAwayScore = 0;
 
     public ArrayList<GameObject> pAllGameObjects = new ArrayList<>();
 
@@ -93,6 +93,11 @@ public class GameView extends View
                 mHandler.post(this);
             }
         });
+    }
+
+    public void setHomePaddlePos(int xPos)
+    {
+        pHomePaddle.setXPos(xPos);
     }
 
     public void onDraw(Canvas canvas)

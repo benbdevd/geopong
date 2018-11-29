@@ -6,10 +6,14 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.media.MediaPlayer;
+import android.support.v4.view.MotionEventCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MotionEvent;
+import android.view.View;
 
+import static edu.threegees.geopong.JConstants.*;
 /**
  *  ACTIVITY AT THE TOP OF THE HIERARCHY FOR THE 'PONG GAME'
  *      CREATES A GameView, LocationManager, LocationListner, and a MediaPlayer
@@ -18,6 +22,7 @@ import android.util.Log;
 
 public class GameActivity extends AppCompatActivity
 {
+
     GameView mGameView;
 
     Location mCurLocation;
@@ -72,7 +77,6 @@ public class GameActivity extends AppCompatActivity
         }
         mMediaPlayer.setLooping(true);
         mMediaPlayer.start();
-
     }
 
     @Override
@@ -114,6 +118,25 @@ public class GameActivity extends AppCompatActivity
         {
         }
     }
+
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event)
+    {
+        float xPos = event.getX();
+        float yPos = event.getY();
+
+        switch (event.getAction())
+        {
+            case MotionEvent.ACTION_MOVE:
+                mGameView.setHomePaddlePos((int) xPos);
+                //TODO add multiplayer logic here
+                break;
+        }
+
+        return true;
+    }
+
     
     public LocationListener createLocationListener(final GameView gameView)
     {

@@ -78,6 +78,11 @@ public class GamePaddle extends GameObject
         mDimensions.set(left, top, right, bottom);
     }
 
+    public void setXPos(int xPos)
+    {
+        mXPosition = xPos;
+    }
+
     public int getWidth()
     {
         return mWidth;
