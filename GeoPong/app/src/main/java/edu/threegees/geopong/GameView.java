@@ -2,18 +2,10 @@ package edu.threegees.geopong;
 
 import android.content.Context;
 import android.graphics.Canvas;
-import android.graphics.ColorFilter;
 import android.graphics.Paint;
-import android.graphics.Rect;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.content.res.ResourcesCompat;
 import android.util.AttributeSet;
 import android.view.View;
-import android.widget.ImageView;
 
 import java.util.ArrayList;
 
@@ -114,7 +106,7 @@ public class GameView extends View
 
         //TODO make this a single player only question
         //Draws the lives for single player
-        setHearts();
+        updateHearts();
 
         mHearts[0].draw(canvas);
         mHearts[1].draw(canvas);
@@ -125,15 +117,15 @@ public class GameView extends View
      * Once the newest version is up have an if statement for single player that decreases pLives by
      * 1 each time.
      */
-    public void setHearts()
+    public void updateHearts()
     {
         mLives = mLives - mGameBall.getTimesResetCalled();
 
         //for left and top -, for right and top +
-        int heartSize = pGameWidth/31;
+        int heartSize = (int) (pGameWidth/(double)HEART_SIZE_DENOMINATOR);
 
         //hearts height;
-        int heartsHeight = (pGameHeight/19) + 1;
+        int heartsHeight = (int) (pGameHeight/(double)HEART_HEIGHT_DENOMINATOR) - HEART_HEIGHT_ADJUSTMENT;
 
         //heart[0] location
         int firstHeartX = pGameWidth/3;
@@ -143,11 +135,6 @@ public class GameView extends View
         int thirdHeartX = (pGameWidth/3) * 2;
         switch (mLives)
         {
-            default:
-                mHearts[0] = getResources().getDrawable(R.drawable.emptyheart, null);
-                mHearts[1] = getResources().getDrawable(R.drawable.emptyheart, null);
-                mHearts[2] = getResources().getDrawable(R.drawable.emptyheart, null);
-                break;
             case 3:
                 mHearts[0] = getResources().getDrawable(R.drawable.fullheart, null);
                 mHearts[1] = getResources().getDrawable(R.drawable.fullheart, null);
@@ -163,6 +150,13 @@ public class GameView extends View
                 mHearts[1] = getResources().getDrawable(R.drawable.emptyheart, null);
                 mHearts[2] = getResources().getDrawable(R.drawable.emptyheart, null);
                 break;
+                /*
+            default:
+                mHearts[0] = getResources().getDrawable(R.drawable.emptyheart, null);
+                mHearts[1] = getResources().getDrawable(R.drawable.emptyheart, null);
+                mHearts[2] = getResources().getDrawable(R.drawable.emptyheart, null);
+                break;
+                */
         }
 
         mHearts[0].setBounds(firstHeartX -heartSize, heartsHeight - heartSize, firstHeartX + heartSize, heartsHeight + heartSize);

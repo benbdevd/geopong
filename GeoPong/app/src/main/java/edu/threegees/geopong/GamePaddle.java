@@ -51,7 +51,7 @@ public class GamePaddle extends GameObject
                 mYPosition = PADDLE_EDGE_PADDING;
 
                 mWidth = GameView.pGameWidth;
-                mHeight = PONG_PADDLE_HEIGHT;
+                mHeight = SINGLE_PADDLE_HEIGHT;
                 break;
         }
 
