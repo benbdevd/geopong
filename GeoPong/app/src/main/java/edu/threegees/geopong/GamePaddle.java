@@ -61,8 +61,8 @@ public class GamePaddle extends GameObject
     @Override
     public void update()
     {
-        changeXBy(mXVelocity);
-        mXVelocity *= 0.2;
+        changeXBy( (float) (mXVelocity  * PADDLE_MOVE_X_PERCENT));
+        mXVelocity *= PADDLE_TRIM_VEL_PERCENT;
 
         setDimensions((int) mXPosition, (int) mYPosition, (int)mXPosition + mWidth, (int)mYPosition  + mHeight);
     }

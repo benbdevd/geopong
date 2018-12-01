@@ -20,6 +20,10 @@ public class JConstants
     static final int PONG_PADDLE_HEIGHT = 50;
     static final int SINGLE_PADDLE_HEIGHT = 86;
 
+    static final double PADDLE_MOVE_X_PERCENT = 0.4;
+    static final double PADDLE_TRIM_VEL_PERCENT = 0.8;
+
+
     static final int HEART_SIZE_DENOMINATOR = 31;
     static final int HEART_HEIGHT_DENOMINATOR = 19;
     static final int HEART_HEIGHT_ADJUSTMENT = 36;
