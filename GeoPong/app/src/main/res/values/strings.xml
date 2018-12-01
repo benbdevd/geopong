@@ -2,9 +2,9 @@
     <string name="app_name">GeoPong</string>
     <string name="main_menu_logo_desc">GeoPong Icon</string>
 
-    <string name="multi_online">ONLINE MULTIPLAYER</string>
-    <string name="multi_local">LOCAL MULTIPLAYER\n(Touch Only)</string>
-    <string name="singleplayer">SINGLEPLAYER</string>
+    <string name="sp_gps">SINGLEPLAYER\n(GPS)</string>
+    <string name="singleplayer">SINGLEPLAYER\n(Touch)</string>
+    <string name="multi_local">LOCAL MULTIPLAYER\n(Touch)</string>
 
     <string name="score_limit_hint">15</string>
     <string name="enter_score_limit">Enter Score Limit</string>

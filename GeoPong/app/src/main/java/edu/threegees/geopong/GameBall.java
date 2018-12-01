@@ -2,7 +2,7 @@ package edu.threegees.geopong;
 
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.util.Log;
+
 
 import java.util.Random;
 
@@ -17,8 +17,7 @@ import static edu.threegees.geopong.JConstants.*;
 public class GameBall extends GameObject
 {
     private boolean isGoingUp;
-
-    private int mTimesResetCalled = 0;
+    private boolean isGoingRight;
 
     public GameBall(GameView gameView)
     {
@@ -35,47 +34,14 @@ public class GameBall extends GameObject
     public void update()
     {
         /**
-         * HANDLE COLLISION WITH WALLS (SPEED DOES NOT CHANGE)
-         */
-        checkGameBounds();
-
-        /**
          * HANDLE PADDLE COLLISIONS (SPEED CHANGES)
          */
         checkPaddleCollisions();
 
         /**
-         *  IF BALL GOES PAST A PADDLE, RESPAWN BALL
+         * HANDLE COLLISION WITH WALLS (SPEED DOES NOT CHANGE)
          */
-        if (mYPosition > GameView.pGameHeight || mYPosition < 0)
-        {
-            respawnBall();
-
-            /**
-             * CHECK FOR WHICH PADDLE HIT THE BALL TO ASSIGN POINTS/TAKE LIVES
-             */
-
-            /*
-            switch (mGameView.pLastPlayerToHit)
-            {
-                case PADDLE_TYPE_SP:
-                    mGameView.mLives--;
-                    break;
-
-                case PADDLE_TYPE_AWAY:
-                    //AWAY POINTS++
-                    break;
-
-                case PADDLE_TYPE_HOME:
-                    //HOME POINTS++
-                    break;
-
-                default:
-                    mGameView.mLives--;
-                    break;
-            }
-            */
-        }
+        checkGameBounds();
 
         changeXBy(mXVelocity);
         changeYBy(mYVelocity);
@@ -142,9 +108,61 @@ public class GameBall extends GameObject
         }
     }
 
+    public void checkGameBounds()
+    {
+        if (mXPosition >= GameView.pGameWidth)
+        {
+            setX(GameView.pGameWidth - PONG_BALL_RADIUS - MINISCULE_BALL_PADDING);
+            collideWithWall();
+        }
+        if (mXPosition <= 0)
+        {
+            setX(0 + PONG_BALL_RADIUS + MINISCULE_BALL_PADDING);
+            collideWithWall();
+        }
+
+        /**
+         *  IF BALL GOES PAST A PADDLE, RESPAWN BALL
+         */
+        if (mYPosition > GameView.pGameHeight || mYPosition < 0)
+        {
+            respawnBall();
+
+            /**
+             * CHECK FOR WHICH PADDLE HIT THE BALL TO ASSIGN POINTS/TAKE LIVES
+             */
+
+            /*
+            switch (mGameView.pLastPlayerToHit)
+            {
+                case PADDLE_TYPE_SP:
+                    mGameView.mLives--;
+                    break;
+
+                case PADDLE_TYPE_AWAY:
+                    //AWAY POINTS++
+                    break;
+
+                case PADDLE_TYPE_HOME:
+                    //HOME POINTS++
+                    break;
+
+                default:
+                    mGameView.mLives--;
+                    break;
+            }
+            */
+        }
+    }
+
     public void collideWithPaddle(int paddleType)
     {
         mGameView.pLastPlayerToHit = paddleType;
+        isGoingRight = mXVelocity > 0;
+
+        /**
+         *  IF THE BALL IS UNDER THE SPEED CAP, INCREMENT THE SPEED (X AND Y), BY THE AMOUNT SPECIFIED IN DIFFICULTY CONSTANTS
+         */
 
         if(Math.abs(mYVelocity) <= SPEED_CAPS[GameView.pDifficulty])
         {
@@ -158,8 +176,22 @@ public class GameBall extends GameObject
                     mYVelocity -= SPEED_INCREMENTS[GameView.pDifficulty];
                     break;
             }
+
+            if(isGoingRight)
+            {
+                mXVelocity += SPEED_INCREMENTS[GameView.pDifficulty];
+            }
+            else
+            {
+                mXVelocity -= SPEED_INCREMENTS[GameView.pDifficulty];
+            }
+
         }
-        else
+        /**
+         * IF THE BALL IS SET TO GO ABOVE THE SPEED CAP, SET IT TO THE SPEED CAP
+         */
+
+        else if (Math.abs(mYVelocity) > SPEED_CAPS[GameView.pDifficulty])
         {
             switch (paddleType)
             {
@@ -171,31 +203,21 @@ public class GameBall extends GameObject
                     mYVelocity = - SPEED_CAPS[GameView.pDifficulty];
                     break;
             }
+
+            if(isGoingRight)
+            {
+                mXVelocity = SPEED_CAPS[GameView.pDifficulty];
+            }
+            else
+            {
+                mXVelocity = - SPEED_CAPS[GameView.pDifficulty];
+            }
         }
         setYVelocity(-mYVelocity);
-    }
-
-    public void checkGameBounds()
-    {
-        if (mXPosition >= GameView.pGameWidth)
-        {
-            setX(GameView.pGameWidth - PONG_BALL_RADIUS - MINISCULE_BALL_PADDING);
-            collideWithWall();
-        }
-        if (mXPosition <= 0)
-        {
-            setX(0 + PONG_BALL_RADIUS + MINISCULE_BALL_PADDING);
-            collideWithWall();
-        }
     }
 
     public void collideWithWall()
     {
         setXVelocity(-mXVelocity);
-    }
-
-    public int getTimesResetCalled()
-    {
-        return mTimesResetCalled;
     }
 }

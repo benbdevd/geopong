@@ -2,9 +2,9 @@ package edu.threegees.geopong;
 
 public class JConstants
 {
-    static final int MULTI_ONLINE = 2;
-    static final int MULTI_LOCAL = 1;
-    static final int SINGLEPLAYER = 0;
+    static final int SP_GPS = 0;
+    static final int SP_TOUCH = 1;
+    static final int MULTI_LOCAL = 2;
 
     static final int[] INITIAL_SPEEDS = {10,12,14,16};
     static final int[] SPEED_INCREMENTS = {1,2,3,4};
@@ -27,7 +27,6 @@ public class JConstants
     static final int PADDLE_EDGE_PADDING = 15;
     static final int MINISCULE_BALL_PADDING = 1;
 
-
     static final int[] GPS_SCALE_FACTORS = {10000, 5000, 2500, 1000};
 
     static final int[] DIFFICULTY_SCORE_FACTORS = {100, 250, 500, 1000};
@@ -40,10 +39,8 @@ public class JConstants
     static final int SINGLEPLAYER_INF_POINTS = -1;
 
     /**
-     * INTENT PUTEXTRA TAGS
+     * INTENT PUT_EXTRA TAGS
      */
     static final String TAG_GAME_DIFFICULTY = "game_difficulty";
     static final String TAG_GAME_DURATION = "game_duration";
-
-
 }

@@ -1,17 +1,15 @@
 package edu.threegees.geopong;
 
 import android.Manifest;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
-import android.media.MediaPlayer;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.app.Service;
+
 import static edu.threegees.geopong.JConstants.*;
 
 public class MainMenuActivity extends AppCompatActivity
@@ -50,7 +48,7 @@ public class MainMenuActivity extends AppCompatActivity
 
     public void onClickMultiOnline(View v)
     {
-        mGameMode = MULTI_ONLINE;
+        mGameMode = SP_GPS;
         onGameModeSelect();
     }
 
@@ -62,7 +60,7 @@ public class MainMenuActivity extends AppCompatActivity
 
     public void onClickSinglePlayer(View v)
     {
-        mGameMode = SINGLEPLAYER;
+        mGameMode = SP_TOUCH;
         onGameModeSelect();
     }
 

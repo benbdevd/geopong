@@ -23,7 +23,7 @@ public class OptionsMenuActivity extends AppCompatActivity implements View.OnCli
         super.onCreate(savedInstanceState);
 
         //if statement sets layout based on whether user chose Singleplayer or a Multiplayer mode
-        if(GameView.pGameMode == SINGLEPLAYER)
+        if(GameView.pGameMode == SP_TOUCH)
         {
             setContentView(R.layout.activity_options_menu_sp);
             mScoreLimit = SINGLEPLAYER_INF_POINTS;
@@ -85,7 +85,7 @@ public class OptionsMenuActivity extends AppCompatActivity implements View.OnCli
                 break;
         }
 
-        if(GameView.pGameMode != SINGLEPLAYER)
+        if(GameView.pGameMode != SP_TOUCH)
         {
             EditText editText = findViewById(R.id.score_limit_field);
             String scoreFieldText = editText.getText().toString();

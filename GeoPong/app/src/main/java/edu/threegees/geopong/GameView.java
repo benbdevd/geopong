@@ -85,13 +85,13 @@ public class GameView extends View
 
         switch (pGameMode)
         {
-            case SINGLEPLAYER:
+            case SP_TOUCH:
                 pAwayPaddle = new GamePaddle(this, PADDLE_TYPE_SP);
                 mLives = 3;
                 break;
 
             case MULTI_LOCAL:
-            case MULTI_ONLINE:
+            case SP_GPS:
                 pAwayPaddle = new GamePaddle(this, PADDLE_TYPE_AWAY);
                 break;
         }
@@ -152,8 +152,7 @@ public class GameView extends View
     }
 
     /**
-     * Once the newest version is up have an if statement for single player that decreases pLives by
-     * 1 each time.
+     * SETS / UPDATES HEART DISPLAY (SP_TOUCH)
      */
     public void updateHearts()
     {
