@@ -62,7 +62,7 @@ public class GamePaddle extends GameObject
     public void update()
     {
         changeXBy(mXVelocity);
-        changeYBy(mYVelocity);
+        mXVelocity *= 0.2;
 
         setDimensions((int) mXPosition, (int) mYPosition, (int)mXPosition + mWidth, (int)mYPosition  + mHeight);
     }
@@ -91,5 +91,26 @@ public class GamePaddle extends GameObject
     public int getHeight()
     {
         return mHeight;
+    }
+
+
+    @Override
+    public void changeXBy(float newX)
+    {
+        if(mXPosition + newX > 0)
+        {
+            if(mXPosition + PONG_PADDLE_WIDTH  + newX < mGameView.pGameWidth)
+            {
+                mXPosition += newX;
+            }
+            else
+            {
+                mXPosition = mGameView.pGameWidth - PONG_PADDLE_WIDTH;
+            }
+        }
+        else
+        {
+            mXPosition = 0;
+        }
     }
 }

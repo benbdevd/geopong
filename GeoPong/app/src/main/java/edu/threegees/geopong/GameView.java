@@ -85,13 +85,13 @@ public class GameView extends View
 
         switch (pGameMode)
         {
+            case SP_GPS:
             case SP_TOUCH:
                 pAwayPaddle = new GamePaddle(this, PADDLE_TYPE_SP);
                 mLives = 3;
                 break;
 
-            case MULTI_LOCAL:
-            case SP_GPS:
+            case MP_LOCAL:
                 pAwayPaddle = new GamePaddle(this, PADDLE_TYPE_AWAY);
                 break;
         }

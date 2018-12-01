@@ -64,6 +64,11 @@ public abstract class GameObject
         mYVelocity = velocity;
     }
 
+    public void changeXVelocityBy(float velocity)
+    {
+        mXVelocity += velocity;
+    }
+
     public void changeXBy(float newX)
     {
         mXPosition += newX;

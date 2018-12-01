@@ -54,7 +54,7 @@ public class MainMenuActivity extends AppCompatActivity
 
     public void onClickMultiLocal(View v)
     {
-        mGameMode = MULTI_LOCAL;
+        mGameMode = MP_LOCAL;
         onGameModeSelect();
     }
 

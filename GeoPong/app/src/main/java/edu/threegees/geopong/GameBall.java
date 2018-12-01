@@ -16,7 +16,6 @@ import static edu.threegees.geopong.JConstants.*;
 
 public class GameBall extends GameObject
 {
-    private boolean isGoingUp;
     private boolean isGoingRight;
 
     public GameBall(GameView gameView)
@@ -77,10 +76,10 @@ public class GameBall extends GameObject
 
     public void checkPaddleCollisions()
     {
-        isGoingUp = mYVelocity < 0;
         boolean collideY;
         boolean collideX1;
         boolean collideX2;
+        float newYPosition;
 
         for (GameObject paddle : mGameView.pAllGameObjects)
         {
@@ -91,18 +90,21 @@ public class GameBall extends GameObject
                 collideX1 = mXPosition + PONG_BALL_RADIUS > paddle.getX() && mXPosition + PONG_BALL_RADIUS < paddle.getX() + ((GamePaddle) paddle).getWidth();
                 collideX2 = mXPosition - PONG_BALL_RADIUS > paddle.getX() && mXPosition - PONG_BALL_RADIUS < paddle.getX() + ((GamePaddle) paddle).getWidth();
 
-                if (isGoingUp)
+                if (paddle == mGameView.pAwayPaddle)
                 {
                     collideY = mYPosition - PONG_BALL_RADIUS > paddle.getY() && mYPosition - PONG_BALL_RADIUS < paddle.getY() + ((GamePaddle) paddle).getHeight();
+                    newYPosition = paddle.getY() + ((GamePaddle) paddle).getHeight() + PONG_BALL_RADIUS;
                 }
                 else
                 {
                     collideY = mYPosition + PONG_BALL_RADIUS > paddle.getY() && mYPosition + PONG_BALL_RADIUS < paddle.getY() + ((GamePaddle) paddle).getHeight();
+                    newYPosition = paddle.getY() - PONG_BALL_RADIUS;
                 }
 
                 if (collideY && (collideX1 || collideX2))
                 {
                     collideWithPaddle(paddleType);
+                    setY(newYPosition);
                 }
             }
         }

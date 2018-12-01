@@ -7,18 +7,17 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.media.MediaPlayer;
-import android.support.v4.view.MotionEventCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
-import android.view.View;
 
 import static edu.threegees.geopong.JConstants.*;
+
 /**
- *  ACTIVITY AT THE TOP OF THE HIERARCHY FOR THE 'PONG GAME'
- *      CREATES A GameView, LocationManager, LocationListner, and a MediaPlayer
- *      SETS CONTENT VIEW TO THE mGameView
+ * ACTIVITY AT THE TOP OF THE HIERARCHY FOR THE 'PONG GAME'
+ * CREATES A GameView, LocationManager, LocationListner, and a MediaPlayer
+ * SETS CONTENT VIEW TO THE mGameView
  */
 
 public class GameActivity extends AppCompatActivity
@@ -28,6 +27,7 @@ public class GameActivity extends AppCompatActivity
     Location mCurLocation;
     LocationManager mLocationManager;
     LocationListener mLocationListener;
+    float[] distanceInMeters;
 
     MediaPlayer mMediaPlayer;
 
@@ -40,14 +40,16 @@ public class GameActivity extends AppCompatActivity
 
         mGameView = new GameView(getApplicationContext(), this);
 
-        //startLocationControl();
+        if(mGameView.pGameMode == SP_GPS)
+        {
+            startLocationControl();
+        }
 
         setContentView(mGameView);
     }
 
     /**
      * At the moment this only deals with the music part of the game
-     * Maybe move some stuff from onCreate here?
      */
     @Override
     protected void onStart()
@@ -55,17 +57,17 @@ public class GameActivity extends AppCompatActivity
         super.onStart();
         mMediaPlayer = new MediaPlayer();
 
-        if(GameView.pDifficulty == 0)
+        if (GameView.pDifficulty == 0)
         {
             //tempo 120
             mMediaPlayer = MediaPlayer.create(this, R.raw.geopongtemposlowest);
         }
-        else if(GameView.pDifficulty == 1)
+        else if (GameView.pDifficulty == 1)
         {
             //tempo 140
             mMediaPlayer = MediaPlayer.create(this, R.raw.geopong);
         }
-        else if(GameView.pDifficulty == 2)
+        else if (GameView.pDifficulty == 2)
         {
             //tempo 180
             mMediaPlayer = MediaPlayer.create(this, R.raw.geopongtempofaster);
@@ -101,42 +103,46 @@ public class GameActivity extends AppCompatActivity
         mMediaPlayer.start();
     }
 
-    public void startTouchControl()
+    @Override
+    public boolean onTouchEvent(MotionEvent event)
     {
+        switch (mGameView.pGameMode)
+        {
+            case SP_TOUCH:
+                float xPos = event.getX();
 
+                switch (event.getAction())
+                {
+                    case MotionEvent.ACTION_MOVE:
+                        mGameView.setHomePaddlePos((int) (xPos - (PONG_PADDLE_WIDTH / 2.0)));
+                        //TODO add multiplayer logic here
+                        break;
+                }
+                return true;
+
+            case MP_LOCAL:
+                return true;
+
+            default:
+                return false;
+        }
     }
 
     public void startLocationControl()
     {
+        distanceInMeters = new float[1];
+
         mLocationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         mLocationListener = createLocationListener(mGameView);
 
         try
         {
             mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, mLocationListener);
-        }catch (SecurityException e)
+        } catch (SecurityException e)
         {
         }
     }
 
-
-    @Override
-    public boolean onTouchEvent(MotionEvent event)
-    {
-        float xPos = event.getX();
-
-        switch (event.getAction())
-        {
-            case MotionEvent.ACTION_MOVE:
-                mGameView.setHomePaddlePos((int) (xPos - (PONG_PADDLE_WIDTH / 2.0)));
-                //TODO add multiplayer logic here
-                break;
-        }
-
-        return true;
-    }
-
-    
     public LocationListener createLocationListener(final GameView gameView)
     {
         LocationListener locationListener = new LocationListener()
@@ -155,12 +161,25 @@ public class GameActivity extends AppCompatActivity
             public void onLocationChanged(Location location)
             {
                 Log.d("LOC_TEST", "CHANGED: " + location.getLatitude());
-                if(location != null && mCurLocation != null)
+                if (location != null && mCurLocation != null)
                 {
-                    gameView.pHomePaddle.setX((float) location.getLongitude());
+                    double currentLat = mCurLocation.getLatitude();
+                    double currentLong = mCurLocation.getLongitude();
+                    double newLat = location.getLatitude();
+                    double newLong = location.getLongitude();
 
-                   ///(mGameView.getCirX() + (float) (mCurLocation.getLatitude() - location.getLatitude()) * GPS_SCALE_FACTORS[GameView.pDifficulty]);
-                   // mGameView.setCirY(mGameView.getCirY() + (float) (mCurLocation.getLongitude() - location.getLongitude()) * GPS_SCALE_FACTORS[GameView.pDifficulty]);
+                    Location.distanceBetween(currentLat, currentLong, newLat, newLong, distanceInMeters);
+
+                    distanceInMeters[0] *= GPS_SCALE_FACTORS[mGameView.pDifficulty];
+
+                    if(currentLong > newLong)
+                    {
+                        mGameView.pHomePaddle.changeXVelocityBy(distanceInMeters[0]);
+                    }
+                    else
+                    {
+                        mGameView.pHomePaddle.changeXVelocityBy(- distanceInMeters[0]);
+                    }
                 }
 
                 mCurLocation = location;
@@ -177,7 +196,7 @@ public class GameActivity extends AppCompatActivity
                 try
                 {
                     mCurLocation = mLocationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-                }catch (SecurityException e)
+                } catch (SecurityException e)
                 {
                 }
             }
@@ -187,7 +206,7 @@ public class GameActivity extends AppCompatActivity
             {
             }
         };
-        
+
         return locationListener;
     }
 
@@ -201,7 +220,7 @@ public class GameActivity extends AppCompatActivity
         intent.putExtra(TAG_GAME_DIFFICULTY, mGameView.pDifficulty);
         intent.putExtra(TAG_GAME_DURATION, gameDuration);
 
-        Log.d("TAG11", ": dur" + gameDuration +", dif: " + mGameView.pDifficulty);
+        Log.d("TAG11", ": dur" + gameDuration + ", dif: " + mGameView.pDifficulty);
 
         startActivity(intent);
     }
