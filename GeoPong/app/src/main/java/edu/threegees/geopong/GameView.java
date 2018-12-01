@@ -108,11 +108,6 @@ public class GameView extends View
             {
                 if(isGameOn)
                 {
-                    if (mLives == 0)
-                    {
-                        stopGame();
-                    }
-
                     for (GameObject obj : pAllGameObjects)
                     {
                         obj.update();

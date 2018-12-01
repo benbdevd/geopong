@@ -87,6 +87,11 @@ public class GameBall extends GameObject
     {
         mGameView.mLives--;
 
+        if (mGameView.mLives < 1)
+        {
+            mGameView.stopGame();
+        }
+
         Random ran = new Random();
         //The +- 30 is to prevent the ball from spawning inside the wall
         setX(ran.nextInt(GameView.pGameWidth - 30) + 30);

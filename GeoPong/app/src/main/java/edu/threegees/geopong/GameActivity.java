@@ -124,7 +124,6 @@ public class GameActivity extends AppCompatActivity
     public boolean onTouchEvent(MotionEvent event)
     {
         float xPos = event.getX();
-        float yPos = event.getY();
 
         switch (event.getAction())
         {
