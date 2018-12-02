@@ -109,10 +109,6 @@ public class GameActivity extends AppCompatActivity
         float xPos;
         float yPos;
         //TODO check if this is accurate
-        //Player one on the bottom half
-        float yPosP1;
-        //Player two is on the top half
-        float yPosP2;
 
         switch (mGameView.pGameMode)
         {
@@ -136,16 +132,8 @@ public class GameActivity extends AppCompatActivity
                 {
                     case MotionEvent.ACTION_MOVE:
 
-                        //Player one
-                        if(yPos > GameView.pGameHeight/2)
-                        {
-                            mGameView.setHomePaddlePos((int) (xPos - (PONG_PADDLE_WIDTH / 2.0)));
-                        }
-                        //Player two
-                        else if(yPos < GameView.pGameHeight/2)
-                        {
-                            mGameView.setAwayPaddlePos((int) (xPos - (PONG_PADDLE_WIDTH / 2.0)));
-                        }
+                        mGameView.setHomePaddlePos((int) (xPos - (PONG_PADDLE_WIDTH / 2.0)), (int) yPos);
+                        mGameView.setAwayPaddlePos((int) (xPos - (PONG_PADDLE_WIDTH / 2.0)), (int) yPos);
 
                         break;
                 }

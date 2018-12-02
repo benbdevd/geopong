@@ -188,13 +188,38 @@ public class GameView extends View
 
     }
 
+    /**
+     * One player set paddle method home
+     * @param xPos
+     */
     public void setHomePaddlePos(int xPos)
     {
         pHomePaddle.setXPos(xPos);
     }
 
-    public void setAwayPaddlePos(int xPos)
+    /**
+     * player one set home paddle method
+     * @param xPos
+     * @param yPos
+     */
+    public void setHomePaddlePos(int xPos, int yPos)
     {
-        pAwayPaddle.setXPos(xPos);
+        if(yPos > GameView.pGameHeight/2)
+        {
+            pHomePaddle.setXPos(xPos);
+        }
+    }
+
+    /**
+     * Player two set away paddle method
+     * @param xPos
+     * @param yPos
+     */
+    public void setAwayPaddlePos(int xPos, int yPos)
+    {
+        if(yPos < GameView.pGameHeight/2)
+        {
+            pAwayPaddle.setXPos(xPos);
+        }
     }
 }
