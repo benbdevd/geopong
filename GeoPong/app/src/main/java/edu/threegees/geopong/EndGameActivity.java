@@ -2,6 +2,7 @@ package edu.threegees.geopong;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -15,6 +16,8 @@ import static edu.threegees.geopong.JConstants.*;
  */
 public class EndGameActivity extends AppCompatActivity
 {
+    MediaPlayer mMediaPlayer;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -32,6 +35,12 @@ public class EndGameActivity extends AppCompatActivity
         long finalScore = (long) (timeLasted / (float) NANOTIME_TO_SECONDS_FACTOR) * DIFFICULTY_SCORE_FACTORS[difficulty];
         TextView scoreDisplay = findViewById(R.id.score_display);
 
+        //TODO calculate game score
+        /*
+        I was thinking that we could calculate the score like:
+        nanosecs/1000 * 5
+        or something
+         */
         scoreDisplay.setText("430968203498");
 
         }
@@ -56,18 +65,29 @@ public class EndGameActivity extends AppCompatActivity
     public void onStart()
     {
         super.onStart();
+        mMediaPlayer = new MediaPlayer();
+
+        //TODO find what music we want to use
+        //mMediaPlayer = MediaPlayer.create(this, R.raw.);
+
+
+        mMediaPlayer.setLooping(true);
+        mMediaPlayer.start();
+
     }
 
     @Override
     public void onPause()
     {
         super.onPause();
+        mMediaPlayer.stop();
     }
 
     @Override
     public void onResume()
     {
         super.onResume();
+        mMediaPlayer.start();
     }
 
 }

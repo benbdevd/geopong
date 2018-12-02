@@ -190,6 +190,7 @@ public class GameView extends View
 
     /**
      * One player set paddle method home
+     * takes in a position input in order to update the paddle for painting
      * @param xPos
      */
     public void setHomePaddlePos(int xPos)
@@ -199,6 +200,7 @@ public class GameView extends View
 
     /**
      * player one set home paddle method
+     * takes in a position input in order to update the paddle for painting
      * @param xPos
      * @param yPos
      */
@@ -212,6 +214,7 @@ public class GameView extends View
 
     /**
      * Player two set away paddle method
+     * takes in a position input in order to update the paddle for painting
      * @param xPos
      * @param yPos
      */
