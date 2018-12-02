@@ -137,12 +137,12 @@ public class GameActivity extends AppCompatActivity
                     case MotionEvent.ACTION_MOVE:
 
                         //Player one
-                        if(yPos < GameView.pGameHeight/2)
+                        if(yPos > GameView.pGameHeight/2)
                         {
                             mGameView.setHomePaddlePos((int) (xPos - (PONG_PADDLE_WIDTH / 2.0)));
                         }
                         //Player two
-                        else if(yPos > GameView.pGameHeight/2)
+                        else if(yPos < GameView.pGameHeight/2)
                         {
                             mGameView.setAwayPaddlePos((int) (xPos - (PONG_PADDLE_WIDTH / 2.0)));
                         }
@@ -179,7 +179,7 @@ public class GameActivity extends AppCompatActivity
             /**
              * VERY TEMPORARY TESTING IMPLEMENTATION
              *
-             * JUST SETS THE PLAYER PADDLE X POSITION TO THE DEVICE LONGITUDE
+             * Uses a rudimentary way of changing player paddle based on GPS
              *
              * MUST CHANGE
              * @param location
