@@ -106,21 +106,49 @@ public class GameActivity extends AppCompatActivity
     @Override
     public boolean onTouchEvent(MotionEvent event)
     {
+        float xPos;
+        float yPos;
+        //TODO check if this is accurate
+        //Player one on the bottom half
+        float yPosP1;
+        //Player two is on the top half
+        float yPosP2;
+
         switch (mGameView.pGameMode)
         {
             case SP_TOUCH:
-                float xPos = event.getX();
+                xPos = event.getX();
 
                 switch (event.getAction())
                 {
                     case MotionEvent.ACTION_MOVE:
                         mGameView.setHomePaddlePos((int) (xPos - (PONG_PADDLE_WIDTH / 2.0)));
-                        //TODO add multiplayer logic here
                         break;
                 }
                 return true;
 
             case MP_LOCAL:
+                xPos = event.getX();
+                yPos = event.getY();
+
+
+                switch (event.getAction())
+                {
+                    case MotionEvent.ACTION_MOVE:
+
+                        //Player one
+                        if(yPos < GameView.pGameHeight/2)
+                        {
+                            mGameView.setHomePaddlePos((int) (xPos - (PONG_PADDLE_WIDTH / 2.0)));
+                        }
+                        //Player two
+                        else if(yPos > GameView.pGameHeight/2)
+                        {
+                            mGameView.setAwayPaddlePos((int) (xPos - (PONG_PADDLE_WIDTH / 2.0)));
+                        }
+
+                        break;
+                }
                 return true;
 
             default:

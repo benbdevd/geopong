@@ -142,52 +142,59 @@ public class GameView extends View
             obj.draw(canvas, mWhitePaint);
         }
 
-        //TODO make this a single player only question
-        //Draws the lives for single player
-        updateHearts();
+        //Draws the lives for single player only
+        if (pGameMode == SP_TOUCH)
+        {
+            updateHearts();
 
-        mHearts[0].draw(canvas);
-        mHearts[1].draw(canvas);
-        mHearts[2].draw(canvas);
+            mHearts[0].draw(canvas);
+            mHearts[1].draw(canvas);
+            mHearts[2].draw(canvas);
+        }
     }
 
     /**
-     * SETS / UPDATES HEART DISPLAY (SP_TOUCH)
+     * SETS / UPDATES HEART DISPLAY (SP_TOUCH ONLY)
      */
     public void updateHearts()
     {
-        switch (mLives)
-        {
-            case 3:
-                mHearts[0] = getResources().getDrawable(R.drawable.fullheart, null);
-                mHearts[1] = getResources().getDrawable(R.drawable.fullheart, null);
-                mHearts[2] = getResources().getDrawable(R.drawable.fullheart, null);
-                break;
-            case 2:
-                mHearts[0] = getResources().getDrawable(R.drawable.fullheart, null);
-                mHearts[1] = getResources().getDrawable(R.drawable.fullheart, null);
-                mHearts[2] = getResources().getDrawable(R.drawable.emptyheart, null);
-                break;
-            case 1:
-                mHearts[0] = getResources().getDrawable(R.drawable.fullheart, null);
-                mHearts[1] = getResources().getDrawable(R.drawable.emptyheart, null);
-                mHearts[2] = getResources().getDrawable(R.drawable.emptyheart, null);
-                break;
+            switch (mLives) {
+                case 3:
+                    mHearts[0] = getResources().getDrawable(R.drawable.fullheart, null);
+                    mHearts[1] = getResources().getDrawable(R.drawable.fullheart, null);
+                    mHearts[2] = getResources().getDrawable(R.drawable.fullheart, null);
+                    break;
+                case 2:
+                    mHearts[0] = getResources().getDrawable(R.drawable.fullheart, null);
+                    mHearts[1] = getResources().getDrawable(R.drawable.fullheart, null);
+                    mHearts[2] = getResources().getDrawable(R.drawable.emptyheart, null);
+                    break;
+                case 1:
+                    mHearts[0] = getResources().getDrawable(R.drawable.fullheart, null);
+                    mHearts[1] = getResources().getDrawable(R.drawable.emptyheart, null);
+                    mHearts[2] = getResources().getDrawable(R.drawable.emptyheart, null);
+                    break;
 
-            default:
-                mHearts[0] = getResources().getDrawable(R.drawable.emptyheart, null);
-                mHearts[1] = getResources().getDrawable(R.drawable.emptyheart, null);
-                mHearts[2] = getResources().getDrawable(R.drawable.emptyheart, null);
-                break;
-        }
+                default:
+                    mHearts[0] = getResources().getDrawable(R.drawable.emptyheart, null);
+                    mHearts[1] = getResources().getDrawable(R.drawable.emptyheart, null);
+                    mHearts[2] = getResources().getDrawable(R.drawable.emptyheart, null);
+                    break;
+            }
 
-        mHearts[0].setBounds(FIRST_HEART_X - HEART_SIZE, HEART_HEIGHT - HEART_SIZE, FIRST_HEART_X + HEART_SIZE, HEART_HEIGHT + HEART_SIZE);
-        mHearts[1].setBounds(SECOND_HEART_X - HEART_SIZE, HEART_HEIGHT - HEART_SIZE, SECOND_HEART_X + HEART_SIZE, HEART_HEIGHT + HEART_SIZE);
-        mHearts[2].setBounds(THIRD_HEAR_X - HEART_SIZE, HEART_HEIGHT - HEART_SIZE, THIRD_HEAR_X + HEART_SIZE, HEART_HEIGHT + HEART_SIZE);
+            mHearts[0].setBounds(FIRST_HEART_X - HEART_SIZE, HEART_HEIGHT - HEART_SIZE, FIRST_HEART_X + HEART_SIZE, HEART_HEIGHT + HEART_SIZE);
+            mHearts[1].setBounds(SECOND_HEART_X - HEART_SIZE, HEART_HEIGHT - HEART_SIZE, SECOND_HEART_X + HEART_SIZE, HEART_HEIGHT + HEART_SIZE);
+            mHearts[2].setBounds(THIRD_HEAR_X - HEART_SIZE, HEART_HEIGHT - HEART_SIZE, THIRD_HEAR_X + HEART_SIZE, HEART_HEIGHT + HEART_SIZE);
+
     }
 
     public void setHomePaddlePos(int xPos)
     {
         pHomePaddle.setXPos(xPos);
+    }
+
+    public void setAwayPaddlePos(int xPos)
+    {
+        pAwayPaddle.setXPos(xPos);
     }
 }
